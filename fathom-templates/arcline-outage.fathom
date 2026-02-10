@@ -6,6 +6,7 @@ layers: 1:Press, 2:Engineering, 3:Legal
 default_layer: 1
 author: Arcline Infrastructure Team
 date: 2026-01-28
+theme: editorial
 ---
 
 # Service Incident — January 28, 2026

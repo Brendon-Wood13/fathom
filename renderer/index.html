@@ -7,23 +7,99 @@
   <style>
     *, *::before, *::after { box-sizing: border-box; }
 
-    :root {
+    /* ── Theme: Clean (default) ──────────────────────────────────── */
+    :root,
+    .theme-clean {
+      --bg: #fff;
+      --text: #1a1a1a;
+      --text-muted: #6b7280;
+      --border: #e5e7eb;
+      --font-heading: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+      --font-body: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+      --line-height: 1.7;
+      --header-border: 1px solid var(--border);
       --layer-2-color: #2563eb;
       --layer-2-bg: rgba(37, 99, 235, 0.07);
       --layer-2-border: rgba(37, 99, 235, 0.35);
       --layer-3-color: #7c3aed;
       --layer-3-bg: rgba(124, 58, 237, 0.07);
       --layer-3-border: rgba(124, 58, 237, 0.35);
+      --code-bg: #f3f4f6;
+      --code-text: inherit;
+      --btn-bg: #fff;
+      --btn-border: #d1d5db;
+      --btn-hover: #f3f4f6;
+      --bar-bg: rgba(255, 255, 255, 0.95);
+      --active-btn-bg: #1a1a1a;
+      --active-btn-text: #fff;
+      --drop-border: #d1d5db;
+      --ref-text: #374151;
+    }
+
+    /* ── Theme: Editorial ────────────────────────────────────────── */
+    .theme-editorial {
+      --bg: #faf8f4;
+      --text: #2c2c2c;
+      --text-muted: #7a7368;
+      --border: #e0dbd3;
+      --font-heading: Georgia, 'Times New Roman', Times, serif;
+      --font-body: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+      --line-height: 1.8;
+      --header-border: 4px double var(--border);
+      --layer-2-color: #0d7377;
+      --layer-2-bg: rgba(13, 115, 119, 0.07);
+      --layer-2-border: rgba(13, 115, 119, 0.35);
+      --layer-3-color: #a0522d;
+      --layer-3-bg: rgba(160, 82, 45, 0.07);
+      --layer-3-border: rgba(160, 82, 45, 0.35);
+      --code-bg: #f0ece4;
+      --code-text: inherit;
+      --btn-bg: #faf8f4;
+      --btn-border: #d4cfc6;
+      --btn-hover: #f0ece4;
+      --bar-bg: rgba(250, 248, 244, 0.95);
+      --active-btn-bg: #2c2c2c;
+      --active-btn-text: #faf8f4;
+      --drop-border: #d4cfc6;
+      --ref-text: #4a4540;
+    }
+
+    /* ── Theme: Mono (dark) ──────────────────────────────────────── */
+    .theme-mono {
+      --bg: #1a1b1e;
+      --text: #e4e4e7;
+      --text-muted: #9ca3af;
+      --border: #3f3f46;
+      --font-heading: 'SF Mono', Consolas, 'Liberation Mono', Menlo, monospace;
+      --font-body: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+      --line-height: 1.7;
+      --header-border: 1px solid var(--border);
+      --layer-2-color: #22d3ee;
+      --layer-2-bg: rgba(34, 211, 238, 0.1);
+      --layer-2-border: rgba(34, 211, 238, 0.35);
+      --layer-3-color: #f59e0b;
+      --layer-3-bg: rgba(245, 158, 11, 0.1);
+      --layer-3-border: rgba(245, 158, 11, 0.35);
+      --code-bg: #27272a;
+      --code-text: #e4e4e7;
+      --btn-bg: #27272a;
+      --btn-border: #3f3f46;
+      --btn-hover: #3f3f46;
+      --bar-bg: rgba(26, 27, 30, 0.95);
+      --active-btn-bg: #e4e4e7;
+      --active-btn-text: #1a1b1e;
+      --drop-border: #3f3f46;
+      --ref-text: #a1a1aa;
     }
 
     body {
-      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+      font-family: var(--font-body);
       max-width: 720px;
       margin: 0 auto;
       padding: 40px 20px;
-      line-height: 1.7;
-      color: #1a1a1a;
-      background: #fff;
+      line-height: var(--line-height);
+      color: var(--text);
+      background: var(--bg);
     }
 
     /* File loader */
@@ -33,14 +109,15 @@
     }
     #file-loader h1 {
       font-size: 2em;
+      font-family: var(--font-heading);
       margin-bottom: 8px;
     }
     #file-loader > p {
-      color: #6b7280;
+      color: var(--text-muted);
       margin-bottom: 40px;
     }
     #drop-zone {
-      border: 2px dashed #d1d5db;
+      border: 2px dashed var(--drop-border);
       border-radius: 12px;
       padding: 48px 24px;
       margin-bottom: 20px;
@@ -52,7 +129,7 @@
     }
     #drop-zone p {
       margin: 4px 0;
-      color: #6b7280;
+      color: var(--text-muted);
     }
     #file-input {
       margin-top: 12px;
@@ -64,9 +141,9 @@
     .layer-toggle-bar {
       position: sticky;
       top: 0;
-      background: rgba(255, 255, 255, 0.95);
+      background: var(--bar-bg);
       backdrop-filter: blur(8px);
-      border-bottom: 1px solid #e5e7eb;
+      border-bottom: 1px solid var(--border);
       padding: 10px 0;
       z-index: 100;
       display: flex;
@@ -76,61 +153,86 @@
     }
     .layer-toggle-bar .label {
       font-size: 13px;
-      color: #6b7280;
+      color: var(--text-muted);
       margin-right: 4px;
     }
     .layer-btn {
       padding: 5px 14px;
-      border: 1px solid #d1d5db;
+      border: 1px solid var(--btn-border);
       border-radius: 6px;
-      background: #fff;
+      background: var(--btn-bg);
+      color: var(--text);
       cursor: pointer;
       font-size: 13px;
       font-family: inherit;
       transition: all 0.12s;
     }
-    .layer-btn:hover { background: #f3f4f6; }
+    .layer-btn:hover { background: var(--btn-hover); }
     .layer-btn.active {
-      background: #1a1a1a;
-      color: #fff;
-      border-color: #1a1a1a;
+      background: var(--active-btn-bg);
+      color: var(--active-btn-text);
+      border-color: var(--active-btn-bg);
     }
     .layer-btn.active.layer-2 {
       background: var(--layer-2-color);
       border-color: var(--layer-2-color);
+      color: #fff;
     }
     .layer-btn.active.layer-3 {
       background: var(--layer-3-color);
       border-color: var(--layer-3-color);
+      color: #fff;
+    }
+    .theme-mono .layer-btn.active.layer-2,
+    .theme-mono .layer-btn.active.layer-3 {
+      color: #1a1b1e;
     }
 
     .fathom-header {
-      border-bottom: 1px solid #e5e7eb;
+      border-bottom: var(--header-border);
       padding-bottom: 16px;
       margin-bottom: 32px;
     }
     .fathom-header h1 {
+      font-family: var(--font-heading);
       font-size: 1.6em;
       margin: 0 0 8px;
     }
     .fathom-header .meta {
       font-size: 0.9em;
-      color: #6b7280;
+      color: var(--text-muted);
     }
 
     /* Body content */
-    #doc-body h1 { font-size: 1.5em; margin: 32px 0 16px; }
-    #doc-body h2 { font-size: 1.25em; margin: 28px 0 12px; }
-    #doc-body h3 { font-size: 1.1em; margin: 24px 0 10px; }
+    #doc-body h1 { font-family: var(--font-heading); font-size: 1.5em; margin: 32px 0 16px; }
+    #doc-body h2 { font-family: var(--font-heading); font-size: 1.25em; margin: 28px 0 12px; }
+    #doc-body h3 { font-family: var(--font-heading); font-size: 1.1em; margin: 24px 0 10px; }
     #doc-body p { margin: 0 0 16px; }
     #doc-body ol, #doc-body ul { margin: 0 0 16px; padding-left: 24px; }
     #doc-body li { margin-bottom: 8px; }
     #doc-body code {
       font-family: 'SF Mono', Consolas, 'Liberation Mono', Menlo, monospace;
       font-size: 0.88em;
-      background: #f3f4f6;
+      background: var(--code-bg);
+      color: var(--code-text);
       padding: 2px 5px;
       border-radius: 3px;
+    }
+
+    /* Images */
+    .fathom-image {
+      max-width: 100%;
+      height: auto;
+      border-radius: 4px;
+      margin: 8px 0;
+    }
+    .fathom-image-block {
+      margin: 16px 0;
+    }
+    .fathom-image-block img {
+      max-width: 100%;
+      height: auto;
+      border-radius: 4px;
     }
 
     /* Inline trigger (collapsed) */
@@ -246,7 +348,7 @@
     .fathom-ref a:hover { text-decoration: underline; }
 
     #doc-references {
-      border-top: 1px solid #e5e7eb;
+      border-top: 1px solid var(--border);
       margin-top: 40px;
       padding-top: 20px;
     }
@@ -254,7 +356,7 @@
     #doc-references ol {
       padding-left: 20px;
       font-size: 0.9em;
-      color: #374151;
+      color: var(--ref-text);
     }
     #doc-references li { margin-bottom: 6px; }
     #doc-references a { color: var(--layer-2-color); }
@@ -265,15 +367,15 @@
     }
     .toolbar-right button {
       padding: 4px 10px;
-      border: 1px solid #d1d5db;
+      border: 1px solid var(--btn-border);
       border-radius: 6px;
-      background: #fff;
+      background: var(--btn-bg);
       cursor: pointer;
       font-size: 12px;
       font-family: inherit;
-      color: #6b7280;
+      color: var(--text-muted);
     }
-    .toolbar-right button:hover { background: #f3f4f6; color: #1a1a1a; }
+    .toolbar-right button:hover { background: var(--btn-hover); color: var(--text); }
   </style>
 </head>
 <body>
@@ -431,6 +533,22 @@
           continue;
         }
 
+        // Block-level image: line is only ![alt](src) or ![alt](src){...attrs...}
+        const imgLineMatch = line.match(/^!\[([^\]]*)\]\(([^)]+)\)(\{([^}]*)\})?\s*$/);
+        if (imgLineMatch) {
+          const attrs = imgLineMatch[4] ? this.parseImageAttrs(imgLineMatch[4]) : { layer: null, caption: null };
+          blocks.push({
+            type: 'imageBlock',
+            alt: imgLineMatch[1],
+            src: imgLineMatch[2],
+            layer: attrs.layer,
+            caption: attrs.caption,
+            id: this.nextId(),
+          });
+          i++;
+          continue;
+        }
+
         // Paragraph: collect lines until blank line or block-level construct
         let paraText = '';
         while (i < lines.length) {
@@ -438,6 +556,7 @@
           if (pLine.trim() === '') break;
           if (pLine.match(/^#{1,6}\s/)) break;
           if (pLine.trimStart().startsWith('{+')) break;
+          if (pLine.match(/^!\[([^\]]*)\]\(([^)]+)\)(\{[^}]*\})?\s*$/)) break;
           if (paraText) paraText += '\n';
           paraText += pLine;
           i++;
@@ -579,6 +698,17 @@
       };
 
       while (pos < text.length) {
+        // Image: ![alt](src) or ![alt](src){layer:N}
+        if (text[pos] === '!' && pos + 1 < text.length && text[pos + 1] === '[') {
+          const result = this.tryParseImage(text, pos);
+          if (result) {
+            flushPlain();
+            nodes.push(result.node);
+            pos = result.endPos;
+            continue;
+          }
+        }
+
         // Backtick code span
         if (text[pos] === '`') {
           const end = text.indexOf('`', pos + 1);
@@ -671,6 +801,53 @@
       };
     }
 
+    tryParseImage(text, startPos) {
+      // Parse ![alt](src) or ![alt](src){layer:N, caption:"..."} starting at startPos (which is '!')
+      let pos = startPos + 2; // skip '!['
+      // Find closing ]
+      const closeBracket = text.indexOf(']', pos);
+      if (closeBracket === -1) return null;
+      const alt = text.slice(pos, closeBracket);
+      pos = closeBracket + 1;
+
+      // Must be followed by (
+      if (pos >= text.length || text[pos] !== '(') return null;
+      pos++; // skip (
+      const closeParen = text.indexOf(')', pos);
+      if (closeParen === -1) return null;
+      const src = text.slice(pos, closeParen);
+      pos = closeParen + 1;
+
+      // Optional {layer:N, caption:"..."}
+      let layer = null;
+      let caption = null;
+      if (pos < text.length && text[pos] === '{') {
+        const closeBrace = text.indexOf('}', pos);
+        if (closeBrace !== -1) {
+          const attrStr = text.slice(pos + 1, closeBrace);
+          const attrs = this.parseImageAttrs(attrStr);
+          layer = attrs.layer;
+          caption = attrs.caption;
+          pos = closeBrace + 1;
+        }
+      }
+
+      return {
+        node: { type: 'image', alt, src, layer, caption, id: this.nextId() },
+        endPos: pos,
+      };
+    }
+
+    parseImageAttrs(attrStr) {
+      let layer = null;
+      let caption = null;
+      const layerMatch = attrStr.match(/layer:\s*(\d+)/);
+      if (layerMatch) layer = parseInt(layerMatch[1], 10);
+      const captionMatch = attrStr.match(/caption:\s*"([^"]*)"/);
+      if (captionMatch) caption = captionMatch[1];
+      return { layer, caption };
+    }
+
     pushMarkdownNodes(nodes, text) {
       // Process bold, italic within plain text
       // Pattern: **bold**, *italic*
@@ -739,6 +916,7 @@
       this.meta = meta;
       this.references = references;
       this.globalLayer = meta.default_layer || 1;
+      this.theme = meta.theme || 'clean';
       this.expandedNodes.clear();
     }
 
@@ -881,6 +1059,7 @@
         case 'blockInsertion': return this.renderBlockInsertion(block);
         case 'orderedList': return this.renderOrderedList(block);
         case 'unorderedList': return this.renderUnorderedList(block);
+        case 'imageBlock': return this.renderImageBlock(block);
         default: return null;
       }
     }
@@ -915,6 +1094,29 @@
         ul.appendChild(li);
       }
       return ul;
+    }
+
+    renderImageBlock(block) {
+      if (block.layer !== null && block.layer > this.state.globalLayer) return null;
+      if (block.caption) {
+        const figure = document.createElement('figure');
+        figure.className = 'fathom-figure';
+        const img = document.createElement('img');
+        img.src = block.src;
+        img.alt = block.alt;
+        figure.appendChild(img);
+        const figcaption = document.createElement('figcaption');
+        figcaption.textContent = block.caption;
+        figure.appendChild(figcaption);
+        return figure;
+      }
+      const div = document.createElement('div');
+      div.className = 'fathom-image-block';
+      const img = document.createElement('img');
+      img.src = block.src;
+      img.alt = block.alt;
+      div.appendChild(img);
+      return div;
     }
 
     renderBlockInsertion(block) {
@@ -1007,6 +1209,16 @@
           const code = document.createElement('code');
           code.textContent = node.value;
           return code;
+        }
+        case 'image': {
+          if (node.layer !== null && node.layer > this.state.globalLayer) {
+            return document.createTextNode('');
+          }
+          const img = document.createElement('img');
+          img.src = node.src;
+          img.alt = node.alt;
+          img.className = 'fathom-image';
+          return img;
         }
         case 'refMarker': return this.renderRefMarker(node);
         case 'inlineReplacement': return this.renderInlineReplacement(node);
@@ -1118,6 +1330,7 @@
         this.state.init(ast.meta, ast.references);
         this.ast = ast;
 
+        document.body.className = 'theme-' + this.state.theme;
         document.getElementById('file-loader').style.display = 'none';
         document.getElementById('document-view').style.display = 'block';
         document.title = ast.meta.title || 'Fathom Reader';

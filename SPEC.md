@@ -51,6 +51,7 @@ YAML-style key-value pairs between `---` delimiters. Whitespace and ordering are
 |----------|-----------------------|-------------------------------|
 | `author` | Author or organization| `Acme Corp Communications`    |
 | `date`   | Publication date      | `2026-01-15`                  |
+| `theme`  | Renderer theme name   | `clean`, `editorial`, `mono`  |
 
 ### Example
 
@@ -231,11 +232,45 @@ The renderer should provide a UI control to set the current viewing layer global
 
 ---
 
-## 5. Media (Future)
+## 5. Media
 
-The v0.1 spec is text-only. Future versions will support:
+The `.fathom` format supports embedded media. Media elements are layer-aware — they appear only at the specified layer and above.
 
-- Images: `![alt text](path){layer:N}` — image visible at layer N+
+### 5a. Images
+
+Syntax: `![alt text](path){layer:N}`
+
+- `alt text` — accessible description of the image
+- `path` — relative file path or URL to the image
+- `{layer:N}` — minimum layer at which the image is visible. Omit for layer 1 (always visible).
+
+**Examples:**
+
+```
+![Diagram of spacetime curvature](images/spacetime-curvature.png)
+![Technical schematic of the retinal implant](images/implant-diagram.png){layer:2}
+![OCT scan showing fluid resolution at week 12](images/oct-week12.png){layer:3}
+```
+
+- Images without a `{layer:N}` tag are visible at all layers (default: layer 1).
+- Images inside block insertions (`{+N:...}`) inherit the block's layer visibility.
+- The renderer should display images inline with surrounding prose, scaled to fit the content width.
+
+### 5b. Figures with Captions
+
+Syntax: `![alt text](path){layer:N, caption:"Caption text"}`
+
+- The `caption` field is optional. When present, the renderer displays it below the image.
+- Captions support inline replacement syntax for layered caption text.
+
+**Example:**
+
+```
+![Einstein's 1919 eclipse photo](images/eclipse-1919.jpg){layer:1, caption:"The 1919 solar eclipse expedition confirmed that starlight bends around massive objects."}
+```
+
+### 5c. Future Media (Planned)
+
 - Charts/embeds: syntax TBD
 - Video: syntax TBD
 
@@ -246,12 +281,15 @@ The v0.1 spec is text-only. Future versions will support:
 ```
 document        := front_matter body references?
 front_matter    := "---\n" yaml_content "---\n"
-body            := (paragraph | block_insertion | heading | blank_line)*
-paragraph       := (plain_text | inline_replacement | ref_marker)+
+body            := (paragraph | block_insertion | heading | image | blank_line)*
+paragraph       := (plain_text | inline_replacement | ref_marker | inline_image)+
 inline_replacement := "[" trigger_text "]" "{" layer_num ":" content "}"
 block_insertion := "{+" layer_num ":" content "}"
-content         := (plain_text | inline_replacement | ref_marker)+
+content         := (plain_text | inline_replacement | ref_marker | inline_image)+
 ref_marker      := "[^" identifier "]"
+image           := "![" alt_text "](" path ")" layer_qualifier?
+inline_image    := "![" alt_text "](" path ")" layer_qualifier?
+layer_qualifier := "{layer:" layer_num "}"
 heading         := "#"+ " " text
 references      := "---references---\n" ref_definition+
 ref_definition  := "[^" identifier "](" layer_num "): " citation_text
