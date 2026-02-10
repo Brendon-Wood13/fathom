@@ -1,0 +1,69 @@
+---
+title: Arcline Service Incident Report — January 28, 2026
+version: 1.0
+engine: 0.1
+layers: 1:Press, 2:Engineering, 3:Legal
+default_layer: 1
+author: Arcline Infrastructure Team
+date: 2026-01-28
+---
+
+# Service Incident — January 28, 2026
+
+## What Happened
+
+On January 28, 2026, Arcline experienced a [service disruption]{2:service disruption lasting approximately 2 hours and 14 minutes (from 1:08 PM to 3:22 PM EST) that [affected]{3:affected approximately 34% of active sessions, concentrated in the US-East and EU-West regions where edge node certificate propagation latency was highest}} that temporarily prevented some customers from accessing their accounts and dashboards. The issue has been fully resolved and all systems are operational.
+
+{+2:The disruption was caused by a failure in our content delivery infrastructure — not in our core application, database, or authentication systems. At no point was customer data at risk.}
+
+{+3:Root cause: a race condition in the CDN cache invalidation pipeline (service `cdn-inv-controller` v2.14.3) caused stale TLS certificates to persist on a subset of edge nodes after a routine certificate rotation. Affected nodes served expired certificates, triggering browser-level connection failures for end users. The race condition was introduced in commit `a4f82c1` (merged 2026-01-15) as part of the cache warming optimization in PR #4471.}
+
+## Your Data Is Safe
+
+Your account data, files, and configurations were [not affected]{2:not affected by this incident. The failure occurred entirely within our [content delivery layer]{3:content delivery layer (Cloudfront distribution `d-arcline-prod-01` and custom edge middleware `arc-edge` v3.8.1), which handles static asset caching and TLS termination. This layer has no read or write access to customer data stores, which are isolated in a separate VPC with independent authentication}, which is separate from our data storage and authentication systems}.
+
+{+2:We conducted a full security review following the incident. No unauthorized access attempts were detected during the disruption window.}
+
+{+3:Post-incident security audit (conducted by CrowdStrike, report ref ARC-2026-0128-EXT) confirmed: zero anomalous authentication events during the incident window, no evidence of data exfiltration or unauthorized API calls, all customer encryption keys remained intact with no rotation triggered, WAF logs show no exploitation attempts correlated with the outage. The audit scope covered the full incident timeline plus a 6-hour buffer on each side.}
+
+## What We're Doing About It
+
+We have [taken steps]{2:implemented both immediate fixes and long-term infrastructure changes} to ensure this type of disruption does not happen again.
+
+{+2:In the short term, we patched the specific code path that caused the failure and deployed additional monitoring to detect certificate propagation delays before they affect users. Our alerting threshold for TLS handshake failures has been reduced from 5% to 0.5% of requests per region.}
+
+{+3:Specific remediations deployed:
+
+1. **Immediate patch** (deployed 2026-01-28 4:15 PM EST): Reverted cache warming optimization from PR #4471 and added a mutex lock to the certificate rotation handler in `cdn-inv-controller` to prevent concurrent invalidation writes. Patch ref: hotfix `b7e91d4`.
+
+2. **Certificate propagation verification** (deployed 2026-01-29): New pre-flight check in the deployment pipeline that performs end-to-end TLS verification against all edge nodes before marking a certificate rotation as complete. Timeout set at 120s per node with automatic rollback on failure.
+
+3. **Regional circuit breaker** (deployed 2026-01-30): If any region exceeds 0.5% TLS handshake failure rate over a 60-second window, traffic is automatically rerouted to healthy regions via DNS failover (TTL reduced from 300s to 30s for failover records).
+
+4. **Canary rotation protocol** (scheduled 2026-02-15): Certificate rotations will deploy to a 2% canary pool with 30 minutes of soak time and automated rollback before proceeding to full fleet deployment.}
+
+We are also conducting a [broader review]{2:broader review of our infrastructure resilience practices, including [disaster recovery procedures]{3:disaster recovery procedures across all Tier-1 services as defined in our SRE runbook (internal ref: `sre-runbook-v4`). This review is being led by our VP of Engineering and will include third-party assessment by Datadog's reliability consulting team. Findings and any resulting architecture changes will be documented in our Q1 2026 infrastructure transparency report, scheduled for publication March 15, 2026}} to identify and address similar risks across our platform.
+
+## Timeline
+
+The issue began at [1:08 PM EST]{2:1:08 PM EST when our monitoring systems [first detected]{3:first detected an anomalous spike in TLS handshake failures via our Datadog `tls.handshake.error_rate` metric, which breached the 5% threshold on the `us-east-1` regional dashboard at 1:08:42 PM EST. PagerDuty incident INC-20260128-0847 was triggered automatically and acknowledged by the on-call SRE (L. Chen) at 1:11 PM EST} elevated error rates}. Our engineering team [identified the root cause]{2:identified the root cause at 1:47 PM EST and began deploying a fix. The [fix was deployed]{3:fix was deployed in three phases: Phase 1 (2:15 PM) — forced certificate re-propagation to all affected edge nodes via the `arc-edge` management API. Phase 2 (2:38 PM) — confirmed certificate validity on 100% of nodes via automated TLS probe sweep. Phase 3 (3:22 PM) — all client-facing error rates returned to baseline and incident was marked resolved} across all regions by 3:22 PM EST}.
+
+{+2:Total time to detection: 0 minutes (automated). Time to root cause: 39 minutes. Time to initial mitigation: 67 minutes. Time to full resolution: 134 minutes. Our SLA target for Severity-1 incidents is resolution within 180 minutes; this incident was resolved within target.}
+
+## Compensation
+
+Affected customers will receive a [service credit]{2:service credit equal to 5 days of their current plan value, applied automatically to their next billing cycle. [No action is required]{3:No action is required on your part — credits will be calculated based on your plan tier as of 2026-01-28 and applied via our billing system (Stripe) within 5 business days. If you believe you were affected but do not see a credit by February 7, 2026, contact support referencing incident ID ARC-INC-20260128} on your part}.
+
+## Contact
+
+If you have questions or concerns, please reach out to our support team at support@arcline.io or call 1-800-ARC-LINE.
+
+{+2:For enterprise customers with dedicated account managers, your account team has been briefed on the incident and can provide a walkthrough of the technical details. If you would like to schedule a call, please contact your account manager directly or email enterprise-support@arcline.io.}
+
+{+3:For customers requiring a formal incident report for their own compliance or audit purposes, a detailed PDF post-mortem (including full timeline, root cause analysis, and remediation evidence) is available upon request. Email compliance@arcline.io with your organization name and reference incident ID ARC-INC-20260128. Turnaround time is 2 business days. The report includes all information necessary for SOC 2 Type II and ISO 27001 audit trail requirements[^1].}
+
+---references---
+[^1](3): SOC 2 Type II audit trail requirements per AICPA TSP Section 100, CC7.3-CC7.5. https://www.aicpa.org/soc2
+[^2](3): CrowdStrike post-incident security audit, ref ARC-2026-0128-EXT. Available under NDA upon request.
+[^3](2): Arcline uptime SLA and compensation policy. https://arcline.io/legal/sla
+[^4](3): NIST SP 800-53 Rev. 5, Incident Response controls IR-4, IR-5, IR-6. https://csrc.nist.gov/publications/detail/sp/800-53/rev-5/final
