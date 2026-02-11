@@ -135,6 +135,51 @@
       margin-top: 12px;
     }
 
+    /* Quick guide */
+    #quick-guide {
+      max-width: 600px;
+      margin: 60px auto 0;
+      padding-top: 40px;
+      border-top: 1px solid var(--border);
+      text-align: left;
+    }
+    #quick-guide h2 {
+      font-size: 1.1em;
+      font-family: var(--font-heading);
+      margin: 0 0 16px;
+      color: var(--text);
+    }
+    #quick-guide p {
+      font-size: 0.9em;
+      color: var(--text-muted);
+      margin: 0 0 12px;
+      line-height: 1.6;
+    }
+    #quick-guide code {
+      background: var(--code-bg);
+      padding: 2px 6px;
+      border-radius: 3px;
+      font-family: 'SF Mono', Consolas, 'Liberation Mono', Menlo, monospace;
+      font-size: 0.85em;
+    }
+    #quick-guide .example-block {
+      background: var(--code-bg);
+      padding: 12px;
+      border-radius: 6px;
+      margin: 12px 0;
+      font-size: 0.85em;
+      font-family: 'SF Mono', Consolas, 'Liberation Mono', Menlo, monospace;
+      color: var(--text);
+      overflow-x: auto;
+    }
+    #quick-guide a {
+      color: var(--layer-2-color);
+      text-decoration: none;
+    }
+    #quick-guide a:hover {
+      text-decoration: underline;
+    }
+
     /* Document view */
     #document-view { display: none; }
 
@@ -405,6 +450,28 @@
         <p>Drag &amp; drop a <strong>.fathom</strong> file here</p>
         <p style="font-size:0.85em">or</p>
         <input type="file" id="file-input" accept=".fathom,.txt">
+      </div>
+
+      <div id="quick-guide">
+        <h2>New to Fathom?</h2>
+        <p>A .fathom file contains layered content at different depths. Here are the core concepts:</p>
+
+        <p><strong>Front Matter:</strong> Start with YAML metadata</p>
+        <div class="example-block">
+        ---
+        title: My Document
+        author: Your Name
+        default_layer: 1
+        layers: 1:Summary, 2:Details, 3:Deep Dive
+        ---</div>
+
+        <p><strong>Inline Replacement:</strong> Click to expand text with <code>[trigger]{N:replacement}</code></p>
+        <div class="example-block">[the capital]{2:Paris} is beautiful.</div>
+
+        <p><strong>Block Insertion:</strong> Add new content at deeper layers with <code>{+N:content}</code></p>
+        <div class="example-block">{+2:This appears when you go deeper.}</div>
+
+        <p>For complete syntax and examples, read the <a href="https://github.com/Brendon-Wood13/fathom/blob/main/SPEC.md" target="_blank">full specification</a>.</p>
       </div>
     </div>
     <div id="document-view">
