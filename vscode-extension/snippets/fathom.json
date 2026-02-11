@@ -1,0 +1,53 @@
+{
+  "Fathom Front Matter": {
+    "prefix": "frontmatter",
+    "body": [
+      "---",
+      "title: ${1:Document Title}",
+      "version: ${2:1.0}",
+      "engine: 0.1",
+      "layers: ${3:1:Summary, 2:Detail, 3:Technical}",
+      "default_layer: ${4:1}",
+      "author: ${5:Author Name}",
+      "date: ${6:$CURRENT_YEAR-$CURRENT_MONTH-$CURRENT_DATE}",
+      "---",
+      "",
+      "$0"
+    ],
+    "description": "Insert Fathom document front matter"
+  },
+  "Inline Replacement": {
+    "prefix": "rep",
+    "body": "[${1:trigger text}]{${2:2}:${3:replacement text}}",
+    "description": "Insert an inline layer replacement"
+  },
+  "Block Insertion": {
+    "prefix": "block",
+    "body": "{+${1:2}:${2:inserted content}}",
+    "description": "Insert a block insertion"
+  },
+  "Reference Marker": {
+    "prefix": "ref",
+    "body": "[^${1:1}]",
+    "description": "Insert a reference marker"
+  },
+  "Reference Definition": {
+    "prefix": "refdef",
+    "body": "[^${1:1}](${2:2}): ${3:Citation text.} ${4:https://example.com}",
+    "description": "Insert a reference definition"
+  },
+  "Image": {
+    "prefix": "img",
+    "body": "![${1:alt text}](${2:path/to/image.jpg})${3:{layer:${4:1}${5:, caption:\"${6:Caption text}\"}}}",
+    "description": "Insert a layer-aware image"
+  },
+  "References Block": {
+    "prefix": "references",
+    "body": [
+      "---references---",
+      "[^${1:1}](${2:2}): ${3:Citation text.} ${4:https://example.com}",
+      "$0"
+    ],
+    "description": "Insert a references block"
+  }
+}

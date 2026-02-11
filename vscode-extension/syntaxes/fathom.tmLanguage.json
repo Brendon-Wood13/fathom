@@ -1,0 +1,182 @@
+{
+  "$schema": "https://raw.githubusercontent.com/martinring/tmlanguage/master/tmlanguage.json",
+  "name": "Fathom",
+  "scopeName": "source.fathom",
+  "fileTypes": ["fathom"],
+  "patterns": [
+    { "include": "#front-matter" },
+    { "include": "#references-block" },
+    { "include": "#body" }
+  ],
+  "repository": {
+    "front-matter": {
+      "begin": "\\A(---\\s*$)",
+      "beginCaptures": {
+        "1": { "name": "punctuation.definition.front-matter.begin.fathom" }
+      },
+      "end": "^(---\\s*$)",
+      "endCaptures": {
+        "1": { "name": "punctuation.definition.front-matter.end.fathom" }
+      },
+      "contentName": "meta.front-matter.fathom",
+      "patterns": [
+        { "include": "#front-matter-entry" }
+      ]
+    },
+    "front-matter-entry": {
+      "match": "^\\s*(\\w[\\w_]*)\\s*(:)\\s*(.*?)\\s*$",
+      "captures": {
+        "1": { "name": "entity.name.tag.yaml.fathom" },
+        "2": { "name": "punctuation.separator.key-value.yaml.fathom" },
+        "3": { "name": "string.unquoted.yaml.fathom" }
+      }
+    },
+    "references-block": {
+      "begin": "^(---references---)\\s*$",
+      "beginCaptures": {
+        "1": { "name": "punctuation.definition.references.fathom" }
+      },
+      "end": "(?=\\z)",
+      "contentName": "meta.references.fathom",
+      "patterns": [
+        { "include": "#reference-definition" },
+        { "include": "#url" }
+      ]
+    },
+    "reference-definition": {
+      "match": "(\\[\\^)(\\w+)(\\])(\\()(\\d+)(\\))(:)\\s*(.*?)\\s*$",
+      "captures": {
+        "1": { "name": "punctuation.definition.reference.begin.fathom" },
+        "2": { "name": "entity.name.tag.reference.fathom" },
+        "3": { "name": "punctuation.definition.reference.end.fathom" },
+        "4": { "name": "punctuation.definition.layer.begin.fathom" },
+        "5": { "name": "constant.numeric.layer.fathom" },
+        "6": { "name": "punctuation.definition.layer.end.fathom" },
+        "7": { "name": "punctuation.separator.reference.fathom" },
+        "8": {
+          "name": "string.other.citation.fathom",
+          "patterns": [
+            { "include": "#url" }
+          ]
+        }
+      }
+    },
+    "body": {
+      "patterns": [
+        { "include": "#heading" },
+        { "include": "#block-insertion" },
+        { "include": "#image" },
+        { "include": "#ref-marker" },
+        { "include": "#inline-replacement" },
+        { "include": "#code-span" },
+        { "include": "#bold" },
+        { "include": "#italic" },
+        { "include": "#url" }
+      ]
+    },
+    "heading": {
+      "match": "^(#{1,6})\\s+(.*)$",
+      "captures": {
+        "1": { "name": "punctuation.definition.heading.fathom" },
+        "2": { "name": "markup.heading.fathom" }
+      }
+    },
+    "block-insertion": {
+      "begin": "(\\{\\+)(\\d+)(:)",
+      "beginCaptures": {
+        "1": { "name": "keyword.control.insertion.fathom" },
+        "2": { "name": "constant.numeric.layer.fathom" },
+        "3": { "name": "punctuation.separator.layer.fathom" }
+      },
+      "end": "(\\})",
+      "endCaptures": {
+        "1": { "name": "keyword.control.insertion.end.fathom" }
+      },
+      "contentName": "meta.block-insertion.fathom",
+      "patterns": [
+        { "include": "#image" },
+        { "include": "#ref-marker" },
+        { "include": "#inline-replacement" },
+        { "include": "#code-span" },
+        { "include": "#bold" },
+        { "include": "#italic" },
+        { "include": "#url" }
+      ]
+    },
+    "inline-replacement": {
+      "begin": "(?<!\\!)(\\[)([^\\[\\]]+)(\\])(\\{)(\\d+)(:)",
+      "beginCaptures": {
+        "1": { "name": "punctuation.definition.trigger.begin.fathom" },
+        "2": { "name": "markup.underline.link.trigger.fathom" },
+        "3": { "name": "punctuation.definition.trigger.end.fathom" },
+        "4": { "name": "punctuation.definition.replacement.begin.fathom" },
+        "5": { "name": "constant.numeric.layer.fathom" },
+        "6": { "name": "punctuation.separator.layer.fathom" }
+      },
+      "end": "(\\})",
+      "endCaptures": {
+        "1": { "name": "punctuation.definition.replacement.end.fathom" }
+      },
+      "contentName": "meta.inline-replacement.fathom",
+      "patterns": [
+        { "include": "#ref-marker" },
+        { "include": "#inline-replacement" },
+        { "include": "#image" },
+        { "include": "#code-span" },
+        { "include": "#bold" },
+        { "include": "#italic" }
+      ]
+    },
+    "ref-marker": {
+      "match": "(\\[\\^)(\\w+)(\\])",
+      "captures": {
+        "1": { "name": "punctuation.definition.reference.begin.fathom" },
+        "2": { "name": "constant.other.reference.link.fathom" },
+        "3": { "name": "punctuation.definition.reference.end.fathom" }
+      }
+    },
+    "image": {
+      "match": "(!)(\\[)([^\\]]*)(\\])(\\()([^)]*)(\\))(?:(\\{)([^}]*)(\\}))?",
+      "captures": {
+        "1": { "name": "punctuation.definition.image.fathom" },
+        "2": { "name": "punctuation.definition.image.alt.begin.fathom" },
+        "3": { "name": "string.other.image.alt.fathom" },
+        "4": { "name": "punctuation.definition.image.alt.end.fathom" },
+        "5": { "name": "punctuation.definition.image.path.begin.fathom" },
+        "6": { "name": "markup.underline.link.image.fathom" },
+        "7": { "name": "punctuation.definition.image.path.end.fathom" },
+        "8": { "name": "punctuation.definition.image.attrs.begin.fathom" },
+        "9": { "name": "entity.other.attribute-name.image.fathom" },
+        "10": { "name": "punctuation.definition.image.attrs.end.fathom" }
+      }
+    },
+    "code-span": {
+      "match": "(`)(.*?)(`)",
+      "captures": {
+        "1": { "name": "punctuation.definition.raw.begin.fathom" },
+        "2": { "name": "markup.inline.raw.string.fathom" },
+        "3": { "name": "punctuation.definition.raw.end.fathom" }
+      }
+    },
+    "bold": {
+      "match": "(\\*\\*)([^*]+)(\\*\\*)",
+      "captures": {
+        "1": { "name": "punctuation.definition.bold.begin.fathom" },
+        "2": { "name": "markup.bold.fathom" },
+        "3": { "name": "punctuation.definition.bold.end.fathom" }
+      }
+    },
+    "italic": {
+      "match": "(?<!\\*)(\\*)([^*]+)(\\*)(?!\\*)",
+      "captures": {
+        "1": { "name": "punctuation.definition.italic.begin.fathom" },
+        "2": { "name": "markup.italic.fathom" },
+        "3": { "name": "punctuation.definition.italic.end.fathom" }
+      }
+    },
+    "url": {
+      "match": "https?://[^\\s>\\)]+",
+      "name": "markup.underline.link.url.fathom"
+    }
+  }
+}

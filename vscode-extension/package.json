@@ -1,0 +1,52 @@
+{
+  "name": "fathom-language",
+  "displayName": "Fathom",
+  "description": "Syntax highlighting and language support for the Fathom layered document format (.fathom files)",
+  "version": "0.1.0",
+  "publisher": "fathom-format",
+  "license": "MIT",
+  "engines": {
+    "vscode": "^1.80.0"
+  },
+  "categories": [
+    "Programming Languages"
+  ],
+  "keywords": [
+    "fathom",
+    "layered documents",
+    "progressive disclosure",
+    "interactive documents",
+    "depth layers"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/OWNER/fathom"
+  },
+  "galleryBanner": {
+    "color": "#1e1e2e",
+    "theme": "dark"
+  },
+  "contributes": {
+    "languages": [
+      {
+        "id": "fathom",
+        "aliases": ["Fathom", "fathom"],
+        "extensions": [".fathom"],
+        "configuration": "./language-configuration.json"
+      }
+    ],
+    "grammars": [
+      {
+        "language": "fathom",
+        "scopeName": "source.fathom",
+        "path": "./syntaxes/fathom.tmLanguage.json"
+      }
+    ],
+    "snippets": [
+      {
+        "language": "fathom",
+        "path": "./snippets/fathom.json"
+      }
+    ]
+  }
+}
