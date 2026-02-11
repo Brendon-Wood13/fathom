@@ -235,6 +235,24 @@
       border-radius: 4px;
     }
 
+    /* Figures with captions */
+    .fathom-figure {
+      margin: 24px 0;
+      padding: 0;
+    }
+    .fathom-figure img {
+      max-width: 100%;
+      height: auto;
+      border-radius: 4px;
+      display: block;
+    }
+    .fathom-figure figcaption {
+      font-size: 0.85em;
+      color: var(--text-muted);
+      margin-top: 8px;
+      line-height: 1.5;
+    }
+
     /* Inline trigger (collapsed) */
     .fathom-trigger {
       cursor: pointer;
@@ -569,7 +587,20 @@
           });
         }
       }
-      return blocks;
+
+      // Merge consecutive block insertions of the same layer into a single node
+      const merged = [];
+      for (const block of blocks) {
+        if (block.type === 'blockInsertion' && merged.length > 0) {
+          const prev = merged[merged.length - 1];
+          if (prev.type === 'blockInsertion' && prev.layer === block.layer) {
+            prev.content = prev.content.concat(block.content);
+            continue;
+          }
+        }
+        merged.push(block);
+      }
+      return merged;
     }
 
     parseBlockInsertion(lines, startLine) {
@@ -906,7 +937,7 @@
   class FathomState {
     constructor() {
       this.globalLayer = 1;
-      this.expandedNodes = new Set();
+      this.toggledNodes = new Set();
       this.meta = null;
       this.references = [];
       this.listeners = [];
@@ -917,26 +948,28 @@
       this.references = references;
       this.globalLayer = meta.default_layer || 1;
       this.theme = meta.theme || 'clean';
-      this.expandedNodes.clear();
+      this.toggledNodes.clear();
     }
 
     setGlobalLayer(n) {
       this.globalLayer = n;
-      this.expandedNodes.clear();
+      this.toggledNodes.clear();
       this.notify();
     }
 
     toggleNode(nodeId) {
-      if (this.expandedNodes.has(nodeId)) {
-        this.expandedNodes.delete(nodeId);
+      if (this.toggledNodes.has(nodeId)) {
+        this.toggledNodes.delete(nodeId);
       } else {
-        this.expandedNodes.add(nodeId);
+        this.toggledNodes.add(nodeId);
       }
       this.notify();
     }
 
     isExpanded(nodeId, nodeLayer) {
-      return nodeLayer <= this.globalLayer || this.expandedNodes.has(nodeId);
+      const globallyExpanded = nodeLayer <= this.globalLayer;
+      const toggled = this.toggledNodes.has(nodeId);
+      return globallyExpanded ? !toggled : toggled;
     }
 
     getRefByid(id) {
@@ -1217,6 +1250,15 @@
           const img = document.createElement('img');
           img.src = node.src;
           img.alt = node.alt;
+          if (node.caption) {
+            const figure = document.createElement('figure');
+            figure.className = 'fathom-figure';
+            figure.appendChild(img);
+            const figcaption = document.createElement('figcaption');
+            figcaption.textContent = node.caption;
+            figure.appendChild(figcaption);
+            return figure;
+          }
           img.className = 'fathom-image';
           return img;
         }

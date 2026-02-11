@@ -12,7 +12,7 @@ date: 2026-02-10
 
 The theory of relativity is one of the [most important achievements in modern physics]{2:most important achievements in modern physics, fundamentally transforming our understanding of space, time, gravity, and the relationship between energy and matter}. Developed by Albert Einstein in the early twentieth century, it comprises two [interrelated theories]{2:interrelated but distinct theories — special relativity (1905) and general relativity (1915) — each addressing different physical domains}: special relativity and general relativity.
 
-![Portrait of Albert Einstein, circa 1921](images/einstein-portrait-1921.jpg){layer:1, caption:"Albert Einstein, photographed in 1921, the year he received the Nobel Prize in Physics."}
+![Portrait of Albert Einstein, circa 1921](../images/einstein-portrait-1921.jpg){layer:1, caption:"Albert Einstein, photographed in 1921, the year he received the Nobel Prize in Physics."}
 
 {+2:Before Einstein, the reigning framework for understanding motion was Newtonian mechanics, which had stood unchallenged for over two hundred years. Relativity did not prove Newton wrong — Newtonian physics remains extraordinarily accurate for everyday speeds and weak gravitational fields — but it revealed that Newton's laws are an approximation of a deeper, more complete description of nature.}
 
@@ -24,7 +24,7 @@ Einstein published the theory of special relativity in 1905, in a paper titled "
 
 {+2:The first is the **principle of relativity**: the laws of physics are the same in all inertial reference frames — that is, for all observers moving at constant velocity relative to one another. This was not new; Galileo had articulated a version of it centuries earlier. The second is the **principle of light constancy**: the speed of light in a vacuum is the same for all observers, regardless of the motion of the light source or the observer. This was the radical element. The Michelson-Morley experiment of 1887 had demonstrated that light does not behave like a ball thrown from a moving train — its speed does not add to or subtract from the speed of the source.}
 
-![Diagram of the Michelson-Morley experiment apparatus](images/michelson-morley-apparatus.png){layer:2, caption:"The Michelson-Morley interferometer, which demonstrated that the speed of light is constant regardless of Earth's motion through space."}
+![Diagram of the Michelson-Morley experiment apparatus](../images/michelson-morley-apparatus.png){layer:2, caption:"The Michelson-Morley interferometer, which demonstrated that the speed of light is constant regardless of Earth's motion through space."}
 
 The [consequences]{2:consequences of holding both principles to be simultaneously true} are profound. Special relativity shows that [time passes differently]{2:time passes differently for observers in relative motion — a phenomenon called **time dilation**. A clock moving relative to an observer ticks more slowly than one at rest. This is not a mechanical effect on the clock; time itself flows at different rates depending on relative velocity} for objects in motion, that [objects contract]{2:objects contract along their direction of motion — known as **length contraction**. A meter stick moving past you at high speed is genuinely shorter in your reference frame than it is in its own rest frame} in the direction they travel, and that [mass and energy are equivalent]{2:mass and energy are interchangeable, related by the equation E = mc². A small amount of mass corresponds to an enormous quantity of energy, because the speed of light squared (c²) is approximately 9 × 10¹⁶ meters² per second²}.
 
@@ -37,7 +37,7 @@ where γ = 1/√(1 − v²/c²) is the Lorentz factor. At everyday velocities (v
 
 Hermann Minkowski reformulated special relativity geometrically in 1907, introducing the concept of four-dimensional **spacetime** — a single continuum in which space and time are treated as interchangeable coordinates. The spacetime interval ds² = c²dt² − dx² − dy² − dz² is invariant under Lorentz transformations, meaning all observers agree on its value regardless of their relative motion. This invariance is the geometric expression of the postulates of special relativity.}
 
-![Minkowski light cone diagram](images/minkowski-light-cone.png){layer:3, caption:"A Minkowski spacetime diagram showing the light cone. Events inside the cone are causally connected; events outside it cannot influence each other."}
+![Minkowski light cone diagram](../images/minkowski-light-cone.png){layer:3, caption:"A Minkowski spacetime diagram showing the light cone. Events inside the cone are causally connected; events outside it cannot influence each other."}
 
 The most famous result of special relativity is the [equivalence of mass and energy]{2:equivalence of mass and energy, expressed by E = mc². This equation implies that mass is a form of stored energy and that energy has inertia. It is the principle underlying [nuclear reactions]{3:nuclear reactions, both fission and fusion. In fission, the total mass of the products is slightly less than the mass of the original nucleus; the missing mass has been converted to kinetic energy and radiation according to E = mc². In the Sun, the fusion of hydrogen into helium converts approximately 4.3 million tonnes of mass into energy every second, producing 3.8 × 10²⁶ watts of luminosity}}.
 
@@ -45,7 +45,7 @@ The most famous result of special relativity is the [equivalence of mass and ene
 
 Einstein spent a decade — from 1907 to 1915 — developing [general relativity]{2:general relativity, which extends special relativity to include gravity and non-inertial (accelerating) reference frames}. Where special relativity describes physics in the absence of gravity, general relativity explains [how gravity works]{2:how gravity works — not as a force pulling objects together, as Newton described it, but as the curvature of spacetime itself. Massive objects like stars and planets warp the fabric of spacetime around them, and other objects follow curved paths through this warped geometry}.
 
-![Rubber sheet analogy of spacetime curvature](images/spacetime-curvature.png){layer:1, caption:"Massive objects curve spacetime around them. Other objects follow these curves, which we perceive as gravitational attraction."}
+![Rubber sheet analogy of spacetime curvature](../images/spacetime-curvature.png){layer:1, caption:"Massive objects curve spacetime around them. Other objects follow these curves, which we perceive as gravitational attraction."}
 
 {+2:The key insight is the **equivalence principle**: the effects of gravity are indistinguishable from the effects of acceleration. Einstein illustrated this with a thought experiment. A person inside a sealed elevator cannot tell whether the elevator is sitting on the surface of the Earth (feeling gravity pulling downward) or floating in deep space while being accelerated upward at 9.8 m/s². The physics inside the elevator is identical in both cases.
 
@@ -67,7 +67,7 @@ Relativity is not speculative philosophy — it is a [rigorously tested physical
 
 {+2:**Perihelion precession of Mercury.** Newton's laws predicted that Mercury's orbit should precess at a certain rate due to gravitational perturbations from other planets. The observed rate exceeded Newton's prediction by 43 arcseconds per century — a tiny but persistent discrepancy that had puzzled astronomers since Urbain Le Verrier identified it in 1859. General relativity predicts exactly this excess, with no adjustable parameters. This was one of Einstein's first confirmations, computed before the theory was even published in its final form.}
 
-![Photograph from the 1919 solar eclipse expedition](images/eclipse-1919.jpg){layer:2, caption:"Photographic plates from Arthur Eddington's 1919 solar eclipse expedition, which confirmed that starlight bends around the Sun as general relativity predicts."}
+![Photograph from the 1919 solar eclipse expedition](../images/eclipse-1919.jpg){layer:2, caption:"Photographic plates from Arthur Eddington's 1919 solar eclipse expedition, which confirmed that starlight bends around the Sun as general relativity predicts."}
 
 {+2:**Deflection of light.** General relativity predicts that light bends as it passes near a massive object. In 1919, Arthur Eddington led an expedition to observe a total solar eclipse and measured the positions of stars near the Sun. The observed deflection matched Einstein's prediction, making Einstein an international celebrity overnight.}
 
@@ -75,7 +75,7 @@ Relativity is not speculative philosophy — it is a [rigorously tested physical
 
 {+3:**Gravitational waves.** General relativity predicts that accelerating masses produce ripples in spacetime that propagate at the speed of light. These gravitational waves were directly detected for the first time on September 14, 2015, by the LIGO observatories in Hanford, Washington and Livingston, Louisiana. The signal — designated GW150914 — originated from the merger of two black holes approximately 1.3 billion light-years away, with masses of roughly 36 and 29 solar masses. The merger released approximately 3 solar masses of energy as gravitational radiation in a fraction of a second, momentarily outshining the entire observable universe in gravitational wave luminosity. The LIGO detection earned Rainer Weiss, Kip Thorne, and Barry Barish the 2017 Nobel Prize in Physics[^2].}
 
-![LIGO gravitational wave detection of GW150914](images/ligo-gw150914.png){layer:3, caption:"The gravitational wave signal GW150914 as detected by the LIGO Hanford (top) and Livingston (bottom) observatories, showing the characteristic chirp waveform of two merging black holes."}
+![LIGO gravitational wave detection of GW150914](../images/ligo-gw150914.png){layer:3, caption:"The gravitational wave signal GW150914 as detected by the LIGO Hanford (top) and Livingston (bottom) observatories, showing the characteristic chirp waveform of two merging black holes."}
 
 {+3:**Black hole imaging.** In April 2019, the Event Horizon Telescope collaboration released the first direct image of a black hole — the supermassive black hole at the center of galaxy M87, with a mass of approximately 6.5 billion solar masses. The image shows a bright ring of emission surrounding a dark shadow, precisely matching the predictions of general relativity for light orbiting near a black hole's event horizon. A subsequent image of Sagittarius A*, the supermassive black hole at the center of the Milky Way, was released in 2022[^3].}
 
