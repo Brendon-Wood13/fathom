@@ -1,0 +1,99 @@
+---
+title: What is Fathom?
+version: 1.0
+engine: 0.1
+layers: 1:Overview, 2:Format, 3:Spec
+default_layer: 1
+author: The Fathom Project
+date: 2026-02-10
+theme: clean
+---
+
+# What is Fathom?
+
+Fathom is [a document format for layered writing]{2:a plaintext document format where content exists at multiple depth layers. A single `.fathom` file can serve different audiences — a summary reader, a curious learner, and a technical expert — from [one source]{3:one source file. The file is plaintext, editable in any text editor, with lightweight markup that stays out of the way of the prose. A separate rendering engine (like the one you're using right now) parses the markup and produces the interactive layer-switching interface you see above}}. You're reading one right now.
+
+This document is its own demo. Every feature it describes, it demonstrates by using that feature in the description itself. Try clicking the [underlined text in the paragraphs, or use the layer buttons above to shift everything at once]{2:underlined text — that's a **trigger**. It's the visible word or phrase at a shallow layer. When you click it (or switch to a deeper layer), the trigger is replaced by expanded text that elaborates on the same idea. The sentence is written so it reads naturally at both depths. You just experienced this by clicking "underlined text" and reading this replacement. You can also use the layer buttons above to shift everything at once}.
+
+{+2:The three layers in this document are labeled **Overview**, **Format**, and **Spec** — visible in the toggle bar at the top. Overview gives you the concept. Format shows you the syntax. Spec gets into the rendering rules and edge cases. Every fathom document defines its own layer names and count.}
+
+# How Layers Work
+
+A fathom document has [layers of depth]{2:layers of depth, numbered starting at 1. Layer 1 is the shallowest — the summary, the headline, the quick version. Higher-numbered layers go progressively deeper. [A document can have any number of layers]{3:A document can have any number of layers, though two or three is typical. The layers are defined in the front matter (the YAML metadata block at the top of the file) using the format `layers: 1:Label, 2:Label, 3:Label`. Labels are display names — they appear in the renderer's toggle bar and can be anything that fits your content: "Summary/Detail/Technical," "Patient/Clinician/Researcher," "What/Why/How"}}.
+
+The key idea is [progressive disclosure]{2:progressive disclosure — readers choose their own depth rather than being forced through content linearly. A busy executive reads Layer 1 and gets the gist. A curious reader clicks into Layer 2 for context. A specialist expands Layer 3 for the full technical picture. [Every layer is accessible to every reader]{3:Every layer is accessible to every reader — this is a core design principle. Fathom is about empowering readers to self-select their depth, not about hiding information or gatekeeping. There is no access control on layers; the toggle is always available. The author's job is to write each layer so it reads as natural, coherent prose at that depth}}.
+
+{+3:The rendering model is cumulative: at Layer N, all content from layers 1 through N is visible. Switching from Layer 1 to Layer 3 doesn't hide Layer 1 — it reveals Layer 2 and Layer 3 content alongside it. Inline replacements swap trigger text for expanded text. Block insertions reveal new paragraphs. The result is a longer, more detailed version of the same document, not a different document.}
+
+# The Two Building Blocks
+
+Fathom's markup has [two constructs]{2:exactly two constructs — inline replacements and block insertions. That's the entire syntax for layered content. Everything else in a fathom document is [plain prose with standard Markdown formatting]{3:plain prose with standard Markdown formatting — headings with `#`, bold with `**`, italic with `*`, and code with backticks. The layer markup sits alongside Markdown, not instead of it}}.
+
+## Inline Replacements
+
+An inline replacement is [a word or phrase that swaps for a longer version at a deeper layer]{2:a word or phrase (the **trigger**) that gets replaced by expanded text when the reader is at a deeper layer. The syntax is `[trigger text]{N:replacement text}` where N is the layer number. At layers below N, the reader sees the trigger, styled as clickable. At layer N and above, the trigger is replaced — the expanded text takes its place [inline, as part of the same sentence]{3:inline, as part of the same sentence. This is not a tooltip, popover, or sidebar — the replacement text physically replaces the trigger in the paragraph. The sentence must be written so it reads naturally at both depths. This constraint is what makes fathom documents feel coherent rather than bolted together}}. The sentence you just read used one to explain itself.
+
+{+2:The trigger text is styled to signal that it's expandable — by default, colored and underlined like a link, but visually distinct from actual hyperlinks. The color corresponds to the target layer (Layer 2 triggers are blue, Layer 3 triggers are purple in the default theme).}
+
+{+3:Formal syntax: `[visible text]{N:replacement text}` where `visible text` is plain (no nested markup is allowed inside the square brackets — it's the trigger, and it must be simple) and `replacement text` can contain further inline replacements or reference markers. The replacement text must begin with a natural rephrasing of the trigger so the surrounding sentence reads correctly at the expanded layer.}
+
+## Block Insertions
+
+A block insertion is [a paragraph that only appears at a deeper layer]{2:a paragraph (or multiple paragraphs) that only appears at a deeper layer. At shallower layers, the renderer shows a subtle indicator — a thin colored line between paragraphs — hinting that more content is available. The syntax is `{+N:content}` on its own line. At layer N and above, the content appears inline as if it were always part of the document}.
+
+{+2:You're reading one right now. This paragraph is a block insertion at Layer 2. At Layer 1, it wasn't here — just a thin line with a small caret icon. You either clicked that caret or switched to Layer 2 globally. Either way, the document expanded to include this paragraph, and it collapses back when you return to Layer 1.}
+
+{+3:Block insertions are for content that has no natural trigger word in the layer above — entirely new information, not an elaboration of an existing phrase. If the content expands on a concept already mentioned in the paragraph above, prefer an inline replacement with that concept as the trigger. Block insertions are also the right choice for structured content like numbered lists, data tables, or long technical passages that would make an inline replacement unwieldy.}
+
+## Nesting
+
+Inline replacements can [nest]{2:nest — a Layer 2 replacement can contain a Layer 3 replacement inside it, creating [three distinct readings of the same sentence]{3:three distinct readings of the same sentence. You just saw this: at Layer 1, this said "nest." At Layer 2, it said "nest — a Layer 2 replacement can contain a Layer 3 replacement inside it, creating three distinct readings of the same sentence." At Layer 3, you're reading the full expansion with this meta-commentary included. The nesting must always go deeper: Layer 3 inside Layer 2, never the same level inside itself}}.
+
+{+3:The depth rule exists because same-level nesting would create ambiguity — if a Layer 2 replacement contained another Layer 2 replacement, the renderer couldn't determine which should expand first. Strictly increasing depth makes the expansion order unambiguous: outer layers expand before inner layers.}
+
+# Document Structure
+
+Every `.fathom` file has [three sections]{2:three sections: **front matter** at the top (metadata in YAML format between `---` delimiters), the **body** (your prose with layer markup), and an optional **references block** at the end (citations and sources, [delimited by `---references---`]{3:delimited by a line reading exactly `---references---`. References are defined one per line with the syntax `[^ID](N): Citation text. URL` — where ID is the reference identifier used inline, N is the minimum layer at which the reference becomes visible, and the URL is optional})}.
+
+{+2:The front matter at the top of this file looks like this:
+
+`title: What is Fathom?`
+`version: 1.0`
+`engine: 0.1`
+`layers: 1:Overview, 2:Format, 3:Spec`
+`default_layer: 1`}
+
+{+3:Required front matter fields: `title` (document title), `version` (document version), `engine` (minimum Fathom engine version), `layers` (layer definitions as `N:Label` comma-separated), and `default_layer` (which layer to display on initial load). Optional fields include `author`, `date`, and `theme` (the renderer's visual style — `clean`, `editorial`, or `mono`).}
+
+# References
+
+Fathom supports [citations]{2:citations that are layer-aware — a reference can be configured to appear only at a certain depth. This lets you keep a clean Layer 1 free of footnote clutter while providing full academic citations at Layer 3. You place a reference marker like `[^1]` in the body text, and define it in the references block at the bottom of the file[^1]}. This document uses references to cite [its own specification]{2:its own specification[^2] and the project that originated the format[^3]}.
+
+{+3:Reference markers render as superscript footnote numbers. They link to the references section at the bottom of the document. A reference defined at layer 3 is invisible at layers 1 and 2 — the superscript number simply doesn't appear, keeping the prose clean for readers who don't need citations. When the reader switches to layer 3, the markers appear and the references section populates.}
+
+# Images and Media
+
+Fathom supports [layer-aware images]{2:layer-aware images — you can specify a minimum layer for any image, so it only appears at that depth or above. The syntax extends Markdown's image syntax: `![alt text](path){layer:N}`. An image without a layer tag is visible at all layers}.
+
+![Fathom layer toggle bar showing three depth buttons](../images/fathom-layer-toggle.png){caption:"The layer toggle bar — readers switch depth with a click. This image is visible at all layers."}
+
+{+2:Images can also have captions using the `caption` attribute: `![alt](path){layer:N, caption:"Your caption"}`. Captions appear below the image in a muted style.}
+
+![Fathom document at Layer 1 showing collapsed triggers and block indicators](../images/fathom-layer1-view.png){layer:2, caption:"A fathom document at Layer 1 — trigger text is underlined, block insertion indicators appear as thin lines between paragraphs."}
+
+![Fathom document at Layer 3 showing all content expanded](../images/fathom-layer3-view.png){layer:3, caption:"The same document at Layer 3 — all content is visible, expanded text has subtle background highlighting, and reference markers appear."}
+
+# Why Fathom?
+
+Most documents force a choice: [write for the expert or write for the newcomer]{2:write for the expert and lose the newcomer, or write for the newcomer and bore the expert. Fathom dissolves this tradeoff. A single document adapts to its reader — not through dumbing down or gatekeeping, but through [structured depth that the reader controls]{3:structured depth that the reader controls. The format is intentionally simple: plaintext files, two markup constructs, no build tools required. Any text editor can create a fathom document. Any renderer that implements the spec can display one. The format and renderer are fully decoupled — the `.fathom` file is the source of truth, portable and durable}}.
+
+{+2:Consider the use cases: an incident report that serves press, engineering, and legal from one file. A medical briefing that works for patients, clinicians, and researchers. A technical tutorial that's useful to both beginners and experts. A research paper where the abstract, discussion, and methodology are layers of the same narrative rather than disconnected sections.}
+
+{+3:Fathom's design is opinionated about one thing: **replacement, not annotation.** Expanded text replaces trigger text inline — it doesn't appear in a sidebar, tooltip, or popup. This forces authors to write each layer as natural, flowing prose. The result is that a fathom document reads well at every depth, not just at the "default" depth with annotations bolted on. This is harder to write but dramatically better to read.}
+
+The document you're reading is [itself a fathom file]{2:itself a `.fathom` file — plaintext with lightweight markup, served through the Fathom renderer. You can view the raw source, edit it in any text editor, and [host it anywhere that serves static files]{3:host it anywhere that serves static files. The renderer is a single HTML file with no dependencies — no build step, no framework, no server-side processing. Load a `.fathom` file via URL parameter or drag-and-drop, and the renderer does the rest}}.
+
+---references---
+[^1](2): Fathom Format Specification v0.1 — References Block syntax. See section 3 of the spec.
+[^2](3): Fathom Format Specification v0.1 — the authoritative reference for .fathom syntax. https://github.com/Brendon-Wood13/fathom
+[^3](3): Fathom originated as a project to make single-source, multi-audience documents practical without specialized tooling.

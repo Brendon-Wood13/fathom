@@ -1,0 +1,296 @@
+---
+title: How to Build a PC from Parts
+version: 1.0
+engine: 0.1
+layers: 1:Steps, 2:Context, 3:Troubleshoot
+default_layer: 1
+author: Fathom Community
+date: 2026-02-10
+theme: clean
+---
+
+# How to Build a PC from Parts
+
+Building a PC is [straightforward]{2:straightforward — more like adult LEGO than electrical engineering. Every connector is keyed so it only fits one way, and modern components are designed to be [beginner-friendly]{3:beginner-friendly. That said, you're working with static-sensitive electronics on a board with thousands of solder joints, so a little care goes a long way. The most common build failures aren't from broken parts — they're from missed connections, unseated RAM, or forgetting the I/O shield}}. This guide walks you through every step, from unboxing to first boot.
+
+{+2:Before you start, clear a large, clean, non-carpeted workspace. A kitchen table or desk works well. Give yourself at least two hours for your first build — experienced builders can finish in under an hour, but there's no reason to rush.}
+
+{+3:Static electricity can damage components. You don't need an anti-static wrist strap if you periodically touch a grounded metal object (like your PC case) to discharge. Avoid building on carpet or while wearing wool. If you live in a very dry climate, an anti-static strap is cheap insurance.}
+
+# Part 1: Know Your Parts
+
+## Motherboard
+
+The motherboard is the [main circuit board that connects all your components together]{2:main circuit board that everything else plugs into. It determines which CPU, RAM, and storage you can use, so it's the foundation every other part choice flows from[^1]. Key specs to check: [CPU socket type, chipset, RAM generation, and form factor]{3:CPU socket type (e.g., LGA 1700 for Intel 12th–14th gen, AM5 for AMD Ryzen 7000+), chipset (determines overclocking support, PCIe lane count, and USB port options), RAM generation (DDR4 vs DDR5 — the slots are physically different and not cross-compatible), and form factor (ATX, Micro-ATX, or Mini-ITX — must match your case)}}.
+
+![Motherboard overview with labeled sockets and slots](../images/motherboard-overview.jpg){caption:"Motherboard layout — CPU socket (center-top), RAM slots (right), PCIe slots (bottom), M.2 slot (center)."}
+
+## CPU (Processor)
+
+The CPU is the [brain of your computer]{2:brain of your computer. It handles all general-purpose computation — running your operating system, applications, and game logic. Two manufacturers dominate: Intel and AMD. For most builders, [any current-gen mid-range CPU is more than enough]{3:any current-gen mid-range CPU is more than enough. The Intel Core i5 or AMD Ryzen 5 are the sweet spot for gaming and general use. Going higher (i7/Ryzen 7 or i9/Ryzen 9) only makes sense for video editing, 3D rendering, heavy multitasking, or if you simply want headroom. Check benchmarks for your specific use case rather than relying on model numbers alone[^3][^4]}}.
+
+![CPU held between fingers showing gold contact pads](../images/cpu-bottom.jpg){caption:"CPU bottom — handle by the edges only. Never touch the gold contacts or pins."}
+
+## CPU Cooler
+
+The CPU cooler [keeps your processor from overheating]{2:keeps your processor from overheating. CPUs generate significant heat under load and will throttle performance or shut down entirely without cooling. You have two main types: [air coolers and liquid coolers (AIOs)]{3:air coolers (a metal heatsink with a fan — simple, reliable, nothing to leak) and all-in-one liquid coolers (AIOs — a sealed loop with a pump, radiator, and fans, offering better cooling in a thinner profile). For most builds, the stock cooler included with your CPU or a $30–$50 tower air cooler is perfectly adequate. AIOs are primarily for overclocking, hot-running CPUs like Intel's K-series, or when you want a cleaner aesthetic. If your CPU came with a cooler in the box, start with that}}.
+
+![Air cooler and AIO liquid cooler side by side](../images/cooler-types.jpg){layer:2, caption:"Left: tower air cooler. Right: 240mm AIO liquid cooler."}
+
+## RAM (Memory)
+
+RAM is [short-term working memory]{2:short-term working memory — it holds data your CPU is actively using. More RAM lets you run more programs simultaneously. For most builds, [16 GB is the minimum and 32 GB is the sweet spot]{3:16 GB (2x8 GB) is the minimum for a modern build, and 32 GB (2x16 GB) is the sweet spot for gaming, development, and creative work. 64 GB is only necessary for professional video editing, large datasets, or running multiple VMs. Always buy RAM in matched pairs (two identical sticks) to enable dual-channel mode, which roughly doubles memory bandwidth. Check your motherboard's QVL (Qualified Vendor List)[^2] if you want guaranteed compatibility, but in practice, any DDR4 works in DDR4 slots and any DDR5 works in DDR5 slots}}.
+
+![Two RAM sticks side by side](../images/ram-sticks.jpg){caption:"RAM sticks — note the notch near the center, which ensures correct orientation."}
+
+## Storage (SSD / HDD)
+
+Your storage drive is where [your operating system, programs, and files live]{2:your operating system, programs, and files live. There are three common form factors: [M.2 NVMe SSDs, 2.5" SATA SSDs, and 3.5" HDDs]{3:M.2 NVMe SSDs (small stick that plugs directly into the motherboard — fastest, no cables required, use PCIe interface), 2.5" SATA SSDs (laptop-sized drive connected via cable — still fast, good for secondary storage), and 3.5" HDDs (traditional spinning hard drive — slowest but cheapest per terabyte, good for mass file storage). For your boot drive, always use an NVMe SSD — the difference in OS boot time and application load is dramatic. A 1 TB NVMe SSD is the best starting point for most builds}}.
+
+![M.2 SSD next to a 2.5 inch SATA SSD and 3.5 inch HDD](../images/storage-types.jpg){layer:2, caption:"Size comparison — M.2 NVMe (top), 2.5\" SATA SSD (middle), 3.5\" HDD (bottom)."}
+
+## GPU (Graphics Card)
+
+The GPU handles [graphics rendering]{2:graphics rendering — everything you see on screen is drawn by this card. It's the single most important component for gaming performance and is also critical for video editing, 3D work, and machine learning. GPUs plug into the top PCIe x16 slot on your motherboard. [Choose based on the resolution you game at]{3:Choose based on the resolution you game at: 1080p gaming is well-served by mid-range cards (NVIDIA RTX 4060, AMD RX 7600), 1440p benefits from upper-mid-range (RTX 4070, RX 7800 XT), and 4K requires high-end (RTX 4080+, RX 7900 XTX). Check that your power supply has enough wattage and the correct PCIe power connectors for the card you choose — high-end GPUs can draw 200–350W on their own. Also measure your case clearance; modern GPUs can be over 300mm long and 2.5–3 slots thick}}.
+
+![Graphics card showing fans and PCIe connector](../images/gpu.jpg){caption:"Graphics card — fans face down when installed. The PCIe bracket (left) screws into the case."}
+
+## Power Supply (PSU)
+
+The PSU [provides power to every component]{2:provides power to every component. It converts AC wall power to the DC voltages your parts need (12V, 5V, 3.3V). Two things matter most: [wattage and efficiency rating]{3:wattage (total power it can deliver — 650W is enough for most builds, 850W+ for high-end GPUs) and efficiency rating (80+ Bronze/Gold/Platinum — indicates how much power is wasted as heat; Gold is the sweet spot for price-to-efficiency). Buy from reputable brands (Corsair, Seasonic, EVGA, be quiet!) — a cheap PSU can damage every component in your system. Modular PSUs let you attach only the cables you need, reducing clutter. Semi-modular is the best value since the essential motherboard and CPU cables are always attached}}.
+
+![Power supply unit showing modular cable ports and fan](../images/psu.jpg){caption:"Modular PSU — cables plug in to the labeled ports. Fan faces down when installed in most cases."}
+
+## Case
+
+The case [houses everything]{2:houses everything and determines airflow, build ergonomics, and aesthetics. Choose a case that matches your motherboard form factor (ATX case for ATX motherboard, etc.) and [has enough clearance for your GPU and cooler]{3:has enough clearance for your GPU length (check case spec for "maximum GPU length"), your CPU cooler height (check "maximum cooler height"), and your radiator size if using an AIO. Mid-tower ATX cases are the most versatile and easiest to build in. Small form factor (SFF/Mini-ITX) cases look great but make cable management and thermals significantly harder for a first-time builder. Most modern cases come with pre-installed fans; two to three intake fans in front and one exhaust in the rear is a solid baseline airflow configuration}}.
+
+![Empty PC case with side panel removed showing interior](../images/case-interior.jpg){caption:"Mid-tower ATX case interior — motherboard mounts on the right panel, PSU goes in the bottom shroud."}
+
+# Part 2: Tools You Need
+
+You need [a #2 Phillips screwdriver]{2:a #2 Phillips screwdriver — that's the only tool strictly required. A few extras make life easier: [a magnetic-tip screwdriver, zip ties, and good lighting]{3:a magnetic-tip screwdriver (prevents dropping screws into crevices), zip ties or velcro straps (for cable management), a small flashlight or headlamp (case interiors are dark), a pair of needle-nose pliers (for retrieving dropped screws or adjusting jumpers), and thermal paste (if your cooler doesn't come with it pre-applied — most do). You do not need a power drill, soldering iron, or any special electronics tools}}.
+
+![Screwdriver and cable management supplies on a desk](../images/tools.jpg)
+
+# Part 3: Assembly
+
+## Step 1 — Install the CPU
+
+Open the [CPU socket on the motherboard]{2:CPU socket on the motherboard by lifting the retention lever (and load plate on Intel LGA sockets). The socket has a specific orientation — [look for alignment markers]{3:look for the alignment triangle. Both the CPU and socket have a small triangle or dot in one corner — these must line up. On Intel LGA sockets, the CPU has notches on two sides that match keys in the socket. On AMD AM5 sockets, the CPU has a gold triangle in one corner that aligns with a triangle on the socket. If the CPU doesn't drop in with zero force, it's rotated wrong — never push}}.
+
+![CPU socket with retention lever lifted](../images/socket-open.jpg){caption:"CPU socket with retention lever open. Note the alignment arrow in the bottom-left corner."}
+
+[Place the CPU into the socket]{2:Place the CPU gently into the socket — it should drop in under its own weight with no force whatsoever}. Close the retention lever to secure it.
+
+![CPU being placed into the socket, aligning the triangle markers](../images/cpu-install.jpg){caption:"Aligning the CPU — the gold triangle on the chip matches the triangle on the socket."}
+
+{+3:Troubleshooting CPU installation:
+
+- **Lever is very hard to close:** This is normal on Intel LGA sockets — the lever applies significant pressure onto the CPU. You'll feel resistance and hear a slight crunch as the protective socket cover pops off. This is expected. On AMD AM5, the lever should close with moderate pressure — if it feels like you're forcing it, remove the CPU and check alignment.
+- **Bent pins (AMD) or bent socket contacts (Intel):** If you dropped the CPU or inserted it misaligned, inspect carefully. Bent motherboard pins on AMD PGA sockets can sometimes be straightened with a mechanical pencil tip. Bent contacts in an Intel LGA socket are extremely difficult to fix — this usually means a motherboard RMA. Prevention is everything here.
+- **Plastic socket cover flew off:** Keep it. If you ever need to RMA the motherboard, most manufacturers require the socket cover to be reinstalled for shipping.}
+
+## Step 2 — Install the CPU Cooler
+
+[Apply thermal paste]{2:Apply thermal paste if your cooler doesn't have it pre-applied. Most stock coolers and many aftermarket coolers come with paste already on the contact plate — [check the bottom of the cooler first]{3:check the bottom of the cooler first. If you see a grey square or circle of paste, you're good to go. If the copper or aluminum base is bare, apply a small amount (pea-sized, roughly 3–4mm diameter) to the center of the CPU. Don't spread it — mounting pressure distributes it evenly. Too much paste is messy but rarely harmful; too little leaves hot spots. If you need to remount the cooler, always clean off the old paste with isopropyl alcohol (90%+) and a lint-free cloth before reapplying}}.
+
+![Pea-sized dot of thermal paste on center of CPU](../images/thermal-paste.jpg){caption:"Correct amount of thermal paste — a small dot in the center of the CPU."}
+
+Mount the cooler [according to its instructions]{2:according to its instructions — every cooler is a little different. Generally: position the cooler over the CPU, align with the mounting holes, and secure with the provided hardware. [Tighten in a cross pattern]{3:Tighten in a cross pattern (opposite corners) to ensure even mounting pressure — this is critical for proper thermal paste spread and good thermal contact. For tower air coolers, install the mounting bracket first, then seat the heatsink and tighten the spring-loaded screws. For AIO liquid coolers, mount the pump/block to the CPU first, then mount the radiator to the case (top or front mount — top exhaust is generally best for thermals). Don't forget to plug the fan header into the CPU_FAN connector on the motherboard — your system may refuse to boot or will show a warning if this isn't connected}}.
+
+![CPU cooler being mounted onto the motherboard](../images/cooler-install.jpg){caption:"Securing the CPU cooler — tighten screws in a diagonal/cross pattern."}
+
+{+3:Troubleshooting CPU cooler issues:
+
+- **System shuts down shortly after booting:** Likely a thermal issue — the cooler isn't making good contact. Remove it, check for even thermal paste spread on the CPU (it should be a thin, uniform layer). Remount with even pressure.
+- **High idle temps (above 50°C):** Check that the fan is spinning and plugged into CPU_FAN. Check that you removed the plastic peel from the cooler's contact surface (a common mistake). Verify mounting pressure is even.
+- **"CPU Fan Error" on boot:** The fan header isn't connected to CPU_FAN, or the fan RPM is below the BIOS detection threshold. Plug the fan into the CPU_FAN header and check BIOS fan settings.
+- **AIO pump noise (grinding or rattling):** Mount the radiator so the tubes connect at the bottom of the radiator, not the top. Air bubbles collect at the highest point — you want that to be the top of the radiator, not the pump head.}
+
+## Step 3 — Install RAM
+
+Open the [retention clips on the RAM slots]{2:retention clips on the RAM slots by pushing them outward. If your motherboard has four slots and you have two sticks, use slots 2 and 4 (second and fourth from the CPU) — [this is almost always the correct configuration for dual-channel]{3:this is almost always the correct configuration for dual-channel memory. Check your motherboard manual for the recommended population order — it's usually labeled A2 and B2, or the manual will have a diagram. Using the wrong slots won't damage anything, but you'll lose dual-channel bandwidth (effectively halving your memory performance). Some boards won't even post with RAM in the wrong slots if only two of four are populated}}.
+
+![RAM slots on motherboard with clips open](../images/ram-slots.jpg){caption:"RAM slots — use the 2nd and 4th slots (from CPU) for a two-stick configuration."}
+
+Align the notch on the RAM stick with the key in the slot and [press firmly until the clips snap closed]{2:press firmly and evenly on both ends until the retention clips snap closed automatically. It takes more force than you'd expect — [don't be afraid to push hard]{3:don't be afraid to push hard. Insufficient force is the #1 cause of RAM-related no-post issues. You should hear and feel a definitive click on each side. If only one clip engages, the stick isn't fully seated — press the other end until it clicks. Before pressing, double-check the notch alignment — forcing RAM in the wrong orientation will damage both the stick and the slot}}.
+
+![RAM stick being pressed into the slot](../images/ram-install.jpg){caption:"Installing RAM — press firmly on both ends until the clips snap shut."}
+
+{+3:Troubleshooting RAM issues:
+
+- **System won't POST (no display, fans spin):** This is the single most common first-build problem, and it's almost always improperly seated RAM. Remove all sticks, reseat one stick in the slot recommended by your motherboard manual (usually A2), and try to boot. If it works, add the second stick.
+- **System only detects half the installed RAM:** One stick isn't fully seated, or you're using slots that don't form a dual-channel pair. Reseat and check your manual for correct slot placement.
+- **XMP/EXPO profile not stable (crashes, blue screens):** Your RAM's advertised speed is an overclock — XMP (Intel) or EXPO (AMD) profiles push RAM beyond its base specification. If unstable, try enabling the profile but manually setting the speed one step lower (e.g., 6000 MHz instead of 6400 MHz), or increase DRAM voltage by 0.02V in BIOS. Some motherboards and CPUs have a "memory sweet spot" — for AMD AM5, 6000 MHz is generally the optimal frequency for the Infinity Fabric.}
+
+## Step 4 — Install M.2 SSD
+
+Locate the [M.2 slot on your motherboard]{2:M.2 slot on your motherboard — it's usually between the CPU socket and the first PCIe slot. Many modern motherboards have a heatsink cover over the M.2 slot; [remove the heatsink screw and set it aside]{3:remove the heatsink screw and lift off the heatsink. There may be a peel-off thermal pad on the underside of the heatsink — remove the protective film but leave the pad attached to the heatsink. This pad provides thermal transfer between the SSD and heatsink. If your motherboard has multiple M.2 slots, use the one directly connected to the CPU (usually labeled M2_1 or the slot closest to the CPU) for your boot drive — this gives you full PCIe 4.0/5.0 speed rather than routing through the chipset}}.
+
+Insert the M.2 drive at a [slight angle into the slot]{2:slight angle (about 30 degrees) into the slot — the gold contacts go in first. Push it in until it's firmly seated, then [press it flat and secure with the screw]{3:press it flat against the motherboard and secure it with the standoff screw. The screw hole aligns with the semicircular notch at the end of the drive. Some newer motherboards use a tool-less latch instead of a screw — push the drive down and the latch clicks into place. If your drive is shorter than the slot (2242 vs 2280), move the standoff to the appropriate hole}}.
+
+![M.2 SSD being inserted into the motherboard slot at an angle](../images/m2-install.jpg){caption:"M.2 SSD installation — insert at an angle, then press flat and screw down."}
+
+{+3:Troubleshooting M.2 SSD issues:
+
+- **Drive not detected in BIOS:** Check that it's fully seated — remove and reinsert. Verify the slot supports NVMe (some M.2 slots are SATA-only, labeled differently in the manual). Try the other M.2 slot if available.
+- **Slow speeds (reads below 1000 MB/s on an NVMe drive):** You may have installed the NVMe drive in a SATA-only M.2 slot, or the slot is connected via the chipset instead of directly to the CPU. Check your motherboard manual for which slots support NVMe at full speed.
+- **Drive not detected after installing a GPU:** Some M.2 slots share PCIe lanes with the GPU slot. Installing a card in a specific PCIe slot can disable an M.2 slot. Motherboard manual will document these lane-sharing arrangements.}
+
+## Step 5 — Prepare the Case
+
+Before installing the motherboard, [prepare the case]{2:prepare your case by removing both side panels and installing the I/O shield (if your motherboard includes a separate one — [many modern boards have it pre-attached]{3:many modern boards have the I/O shield integrated directly onto the motherboard. If yours is separate, it's a thin metal plate that snaps into the rectangular opening at the back of the case from the inside. Press firmly on all edges until it clicks into place on all four sides. Note the orientation — the audio jacks go at the bottom. The small metal tabs on the I/O shield should fold inward and will press against the ports when the motherboard is installed. These tabs sometimes block port insertion if bent wrong — you can gently bend them out of the way with a screwdriver}}.
+
+![I/O shield being snapped into the rear of the case](../images/io-shield.jpg){layer:2, caption:"I/O shield installation — press from inside the case until it clicks on all sides."}
+
+Install the motherboard [standoffs]{2:standoffs — these are small brass hexagonal spacers that screw into the case tray and elevate the motherboard off the metal surface. [Check that the standoff positions match your motherboard's form factor]{3:Check that the standoff positions match your motherboard's form factor (ATX, Micro-ATX, Mini-ITX). Most cases come with standoffs pre-installed for ATX. If you're using a smaller board, make sure there are no extra standoffs that don't align with a hole on the motherboard — an extra standoff can short-circuit the board against a trace on the underside. The standoff below the CPU socket area usually has a raised nub that helps align the board during installation}}.
+
+## Step 6 — Install the Motherboard
+
+Lower the motherboard into the case, [aligning the I/O ports with the I/O shield]{2:aligning the I/O ports with the I/O shield opening and the screw holes with the standoffs below. Angle the board so the I/O ports enter the shield first, then lay it flat onto the standoffs}.
+
+![Motherboard being lowered into the case, aligned with standoffs](../images/mobo-case-install.jpg){caption:"Lowering the motherboard into the case — I/O ports go through the shield at the rear."}
+
+Secure with [the included screws]{2:the included screws — use all the screw holes that align with standoffs. [Don't overtighten]{3:Don't overtighten — snug plus a quarter turn is enough. The motherboard is a multi-layer PCB and excessive force can crack traces. Start with the center screw to anchor the board, then work outward. If a screw hole doesn't align with a standoff, don't force it — check that you're using the correct standoff pattern for your form factor. A typical ATX motherboard has 9 mounting points}}.
+
+{+3:Troubleshooting motherboard installation:
+
+- **Screw holes don't align with standoffs:** You're likely using the wrong standoff pattern. Check the case manual for your motherboard form factor (ATX, M-ATX, ITX) and move standoffs accordingly. The case tray has labeled positions.
+- **Board sits unevenly or rocks:** A standoff is in the wrong position or there's a misaligned one underneath. Remove the board and verify every standoff aligns with a board mounting hole.
+- **I/O shield tabs blocking ports:** Gently bend the offending tabs inward using a flathead screwdriver or the tip of a pen before seating the board.}
+
+## Step 7 — Install the Power Supply
+
+Slide the PSU into [the PSU bay]{2:the PSU bay — this is typically at the bottom-rear of the case, in a shrouded compartment. The fan faces [down toward the vent in the case floor]{3:down toward the filtered vent in the case floor (in most cases). This lets the PSU draw cool air from below the case independently of the internal airflow. If your case sits on thick carpet with no clearance underneath, mount the PSU fan-up instead. Some cases have the PSU at the top — in that case, fan faces up toward a top vent}}.
+
+![PSU sliding into the bottom bay of the case](../images/psu-install.jpg){caption:"PSU installation — fan faces down. Secure with four screws from the rear of the case."}
+
+Secure with [four screws through the back of the case]{2:four screws through the back of the case into the PSU's mounting holes. Route the cables you need through the cable management cutouts before connecting anything — [plan your cable routing now]{3:plan your cable routing now to avoid a tangled mess later. At minimum, you'll need: the 24-pin ATX motherboard cable (routes from PSU through a cutout near the right edge of the motherboard), the 8-pin (or 4+4 pin) CPU power cable (routes from PSU up through a cutout near the top-left of the motherboard — this cable is often too short, run it first), PCIe power cables for the GPU (route through a cutout near the PCIe slots), and SATA power cables for any 2.5"/3.5" drives. On modular PSUs, plug in only the cables you need}}.
+
+{+3:Troubleshooting PSU issues:
+
+- **System doesn't turn on at all (no fans, no lights):** Check that the PSU switch on the back is set to "I" (on). Verify the wall outlet works. Check the 24-pin motherboard connector — it requires significant force to fully seat. Check the 8-pin CPU power connector — this is the most commonly forgotten cable and the system will not POST without it.
+- **Paperclip test (testing a PSU in isolation):** Unplug the PSU from all components. Bridge the green wire (PS_ON) to any black wire (ground) on the 24-pin connector using a paperclip or jumper wire. Plug in the PSU and flip the switch. If the fan spins, the PSU is outputting power. If nothing happens, the PSU may be dead.
+- **System powers on briefly then shuts off:** Could be a short circuit — verify no extra standoffs are touching the motherboard. Could also be a CPU power issue — double-check the 8-pin CPU cable.}
+
+## Step 8 — Connect Motherboard Power and Front Panel
+
+Plug in the [24-pin ATX power cable]{2:24-pin ATX power cable to the large connector on the right edge of the motherboard. It only fits one way — [align the clip and push until it clicks]{3:align the clip and push firmly until the latch clicks into place. This connector is notoriously stiff — support the back of the motherboard with your other hand while pressing. If it doesn't seem to fit, make sure you're not trying to insert it rotated 180 degrees (the clip side should face the same direction as the latch on the motherboard socket)}}.
+
+Plug in the [8-pin CPU power cable]{2:8-pin CPU power cable (labeled "CPU" or "EPS") to the connector near the top-left of the motherboard. [Don't confuse this with the PCIe power cable]{3:Don't confuse this with the PCIe/GPU power cable — they look similar but have different pin arrangements. The CPU cable is usually labeled "CPU" or "EPS" on the connector. Some motherboards have an additional 4-pin CPU power connector — this is optional for most builds and only needed for extreme overclocking. If your PSU has a 4+4 pin CPU cable, combine both halves into a single 8-pin connector}}.
+
+Connect the [front panel headers]{2:front panel headers — these are the small cables from your case for the power button, reset button, power LED, and HDD LED. They connect to a pin header in the bottom-right corner of the motherboard. [This is the most fiddly part of the build]{3:This is the most fiddly part of the build. The pins are tiny, poorly labeled, and vary by case manufacturer. Check your motherboard manual for the exact pin layout — it will show a diagram labeled "F_PANEL" or "JFP1." The power switch (PWR_SW) is the only one that's truly essential — without it, you can't turn on the PC. Polarity doesn't matter for the switches (power button, reset) but it does matter for the LEDs (+ and - are marked on the connector). If LEDs don't light up, flip the connector around. Many motherboards now include a front panel adapter block that you can assemble outside the case and then plug in as one piece}}.
+
+![Front panel header pins on the motherboard with cables connected](../images/front-panel.jpg){layer:2, caption:"Front panel header — consult your motherboard manual for the exact pinout."}
+
+{+2:Also connect the front panel USB headers: the USB 3.0 header is a wide, blue, keyed connector (usually at the bottom-right of the board), and the USB-C header (if your case has a front USB-C port) is a small, thin connector nearby.}
+
+## Step 9 — Install the GPU
+
+Remove the [PCIe slot covers]{2:PCIe slot covers from the back of the case corresponding to your GPU's size — most modern GPUs take up two or three slots. The covers are either screwed in or punched out (if your case uses punch-out covers, [be careful — they don't go back in]{3:be careful — once you remove a punch-out cover, it can't be reinstalled. Use a flathead screwdriver or pliers to twist them free. Screw-in covers are reusable. Remove only the number of covers your GPU requires — check the GPU's specifications for its slot width})}.
+
+![GPU being aligned with the PCIe x16 slot](../images/gpu-install.jpg){caption:"GPU installation — press into the top PCIe x16 slot until the retention clip clicks."}
+
+Press the GPU firmly into the [top PCIe x16 slot]{2:top PCIe x16 slot (the one closest to the CPU — this slot runs at full bandwidth) until the retention clip at the end of the slot clicks. [Secure the bracket to the case with screws]{3:Secure the metal bracket to the case with the screws from the slot covers you removed. Most GPUs need additional support — if your card sags visibly (the far end droops), use a GPU support bracket. Sag is cosmetic at first but can stress the PCIe slot over time}}.
+
+Connect [PCIe power cables]{2:PCIe power cables from the PSU to the GPU's power connectors on the top or end of the card. Use [separate cables for each connector if possible]{3:separate cables from the PSU for each power connector on the GPU (don't daisy-chain a single cable into both ports on a high-end card). Each PCIe power cable is rated for a certain wattage, and a single cable powering two connectors can overheat. Newer GPUs using the 12VHPWR connector (a single compact 16-pin connector) need the adapter cable included with the PSU or GPU — handle this connector with care as it must be fully inserted with all 4 latching teeth engaged to prevent melting}}.
+
+![PCIe power cables plugged into the GPU](../images/gpu-power.jpg){layer:2, caption:"GPU power cables — use separate cables for each connector on high-end cards."}
+
+{+3:Troubleshooting GPU issues:
+
+- **No display output (fans spin but no picture):** Connect your monitor to the GPU's display output, not the motherboard's I/O panel. This is the second most common first-build mistake. If using a new AMD CPU without integrated graphics, you *must* use the GPU outputs.
+- **GPU fans don't spin:** Many modern GPUs stop their fans at idle/low temps — this is normal. They spin up under load. If they never spin, even under gaming load, check the PCIe power connectors.
+- **GPU not detected in Windows/Device Manager:** Reseat the card. Check that the PCIe slot retention clip is engaged. Try a different PCIe slot. Update your BIOS.
+- **System crashes under GPU load (gaming, benchmarks):** PSU may be insufficient — check total system wattage vs PSU rating. Could also be GPU thermals — check temps with HWiNFO64 or GPU-Z. Above 90°C sustained is a problem.}
+
+## Step 10 — Connect Case Fans
+
+Plug your case fans into the [fan headers on the motherboard]{2:fan headers on the motherboard — they're labeled CHA_FAN or SYS_FAN. Match the connector type: [3-pin for DC fans, 4-pin for PWM fans]{3:3-pin connectors provide voltage-controlled speed (the motherboard varies voltage to speed up or slow down the fan), while 4-pin connectors provide PWM (pulse-width modulation) speed control, which is more precise and efficient. A 3-pin fan can plug into a 4-pin header (and vice versa) — it just won't have PWM control. If you have more fans than headers, use a fan splitter or hub. Orient fans so the arrow on the frame (or the side with the structural supports) faces the direction of airflow. General rule: front and bottom fans as intake, top and rear fans as exhaust}}.
+
+![Case fan header being connected to the motherboard](../images/fan-header.jpg){layer:2, caption:"Fan header — the keyed connector prevents incorrect installation."}
+
+{+3:Troubleshooting fan issues:
+
+- **Fans not spinning:** Check they're plugged in. Some motherboard fan headers are disabled by default in BIOS — check your fan configuration settings.
+- **Fans are very loud:** Configure fan curves in BIOS or with manufacturer software. Reduce maximum RPM at low temps. Consider replacing stock fans with quieter aftermarket ones.
+- **Positive vs negative air pressure:** More intake than exhaust = positive pressure (less dust buildup, air exits through gaps). More exhaust than intake = negative pressure (pulls dust in through unfiltered gaps). Positive pressure with filtered intakes is recommended for most builds.}
+
+## Step 11 — Install Additional Storage (Optional)
+
+If you have a [2.5" SSD or 3.5" HDD, mount it in a drive bay and connect the cables]{2:2.5" SSD or 3.5" HDD for additional storage, mount it in a drive bay or behind the motherboard tray (most modern cases have 2.5" mounts behind the tray and 3.5" bays in a cage below the PSU shroud). [Connect a SATA data cable and SATA power cable]{3:Connect a SATA data cable from the drive to a SATA port on the motherboard (the flat, L-shaped connectors on the edge of the board — use SATA ports 1 or 2 for your primary drive if applicable, though this doesn't matter for secondary storage). Connect a SATA power cable from the PSU to the drive's power connector. SATA data cables have a latch — press the release tab before pulling, or you'll break the connector}}.
+
+![SATA SSD mounted behind the motherboard tray](../images/sata-install.jpg){layer:2, caption:"2.5\" SSD mounted behind the motherboard tray with SATA data and power cables connected."}
+
+## Step 12 — Cable Management
+
+Route cables [behind the motherboard tray]{2:behind the motherboard tray through the case's cable management cutouts. [Tidy cables improve airflow and make future upgrades easier]{3:Tidy cables improve airflow (marginally — modern cases have enough clearance that cable management doesn't dramatically affect thermals) and, more importantly, make future upgrades and troubleshooting much easier. Use zip ties or velcro straps to bundle cables together. Route cables along the edges and use the tie-down points built into the case. The goal is to keep the main chamber (motherboard side) as clear as possible. Excess cable length should be stuffed behind the motherboard tray. Don't forget to plug in any remaining connections: front panel audio (HD_AUDIO header, bottom-left of the motherboard), RGB headers if applicable, and any additional fan cables}}.
+
+![Clean cable management behind the motherboard tray](../images/cable-management.jpg){layer:2, caption:"Cables routed behind the tray and zip-tied — the main chamber stays clean."}
+
+# Part 4: First Boot
+
+## Step 13 — Pre-Boot Checklist
+
+Before turning on your PC, [verify these connections]{2:run through this checklist — catching a missed connection now saves you from troubleshooting a no-post scenario}:
+
+- 24-pin ATX motherboard power
+- 8-pin CPU power
+- CPU cooler fan plugged into CPU_FAN
+- RAM fully seated (clips engaged)
+- GPU fully seated with PCIe power connected
+- Front panel power button header connected
+- Monitor connected to [GPU display output]{2:GPU display output (not the motherboard I/O panel — [the motherboard display outputs only work if your CPU has integrated graphics]{3:the motherboard display outputs only work if your CPU has integrated graphics and will display nothing if you have a dedicated GPU installed. Common source of "I built it but the screen is black" panic})}
+
+{+3:Pro tip — before closing the case, do an open-air test boot. Leave the side panels off and power on the system. If something isn't working, it's much easier to diagnose and fix with everything accessible. Only close the case after you've confirmed POST and entered BIOS.}
+
+## Step 14 — Power On and Enter BIOS
+
+Flip the PSU switch on, then press the [power button on the case]{2:power button on the case. If everything is connected correctly, fans will spin, lights will illuminate, and [your motherboard will begin POST (Power-On Self-Test)]{3:your motherboard will begin POST (Power-On Self-Test) — a sequence where the board checks for essential hardware (CPU, RAM, GPU) before handing off to a bootable drive. During POST, many motherboards display debug codes on a small LED readout or cycle through indicator LEDs labeled CPU, DRAM, VGA, BOOT. If POST completes successfully, you'll see the motherboard splash screen or a "No bootable device" message (which is expected — you haven't installed an OS yet)}}.
+
+![BIOS splash screen showing system information](../images/bios-screen.jpg){caption:"BIOS/UEFI screen — you'll see your CPU, RAM, and storage detected here."}
+
+Press [Delete or F2]{2:Delete or F2 (varies by manufacturer — it's shown briefly on the splash screen) to enter the BIOS/UEFI setup}. In BIOS, verify:
+
+- CPU is detected with correct model name
+- RAM shows the [correct amount and speed]{2:correct amount (e.g., 32768 MB for 32 GB). If the speed shows lower than expected (e.g., 4800 MHz instead of 6000 MHz), you need to [enable the XMP or EXPO profile]{3:enable the XMP (Intel) or EXPO (AMD) profile. Find it under an "Overclocking," "Tweaker," or "AI Tweaker" section depending on your motherboard brand. Select Profile 1 and save. This tells the motherboard to run the RAM at its advertised speed rather than the base JEDEC specification. The RAM has been validated to run at this speed by the manufacturer, so it's safe despite being technically an overclock}}
+- Storage drive(s) detected
+- [Fan speeds reported]{2:Fan speeds are being reported — if CPU fan shows 0 RPM, the fan header isn't connected}
+
+{+3:Troubleshooting no-POST (system doesn't boot):
+
+- **Nothing happens at all (no fans, no lights):** PSU switch is off, power cable isn't plugged in, or the front panel power button header isn't connected. Try shorting the two PWR_SW pins on the motherboard with a screwdriver — if that boots the system, the front panel cable is the issue.
+- **Fans spin briefly then shut off (boot loop):** Typically a RAM issue — reseat RAM. Try with one stick only. Clear CMOS (check your motherboard manual for the jumper or button) to reset BIOS to defaults.
+- **Fans spin, no display:** Monitor connected to motherboard instead of GPU. Or GPU isn't seated/powered. Check debug LEDs on motherboard — they'll indicate which component is failing.
+- **Debug LED stuck on DRAM:** RAM isn't seated or is incompatible. Reseat RAM. Try one stick at a time in different slots. Check your motherboard's QVL list.
+- **Debug LED stuck on VGA:** GPU isn't seated or powered. Reseat GPU. Check PCIe power cables. Try a different PCIe slot.
+- **Debug LED stuck on BOOT:** No bootable drive detected — expected if you haven't installed an OS yet. If you have a drive installed, check SATA/M.2 connection.}
+
+## Step 15 — Install an Operating System
+
+Create a [bootable USB drive]{2:bootable USB drive with your operating system. For Windows, download the [Media Creation Tool from Microsoft]{3:Media Creation Tool from microsoft.com/software-download — run it on another computer, select "Create installation media for another PC," and choose a USB drive (8 GB minimum). It will download Windows and create a bootable installer. For Linux, download your distro's ISO and use a tool like Rufus (Windows), Balena Etcher (cross-platform), or the `dd` command to write it to a USB drive}}. Plug it into a [rear USB port]{2:rear USB port (not front panel — rear ports connect directly to the motherboard and are more reliable for booting)}, restart, and boot from the USB.
+
+{+2:In BIOS, set the boot order so the USB drive is first, or use the boot menu (usually F8, F11, or F12) to select the USB drive as a one-time boot device.}
+
+Follow the on-screen installer. For a new build, [format the drive and install fresh]{2:format the target drive and install fresh. Select your NVMe SSD as the installation target. [Don't create extra partitions manually]{3:Don't create extra partitions manually — the installer will create the required system partitions (EFI system partition, recovery, etc.) automatically. If you see multiple drives listed, make sure you select the correct one — you can identify drives by size. After installation, Windows Update will grab most of your drivers automatically, but you should download your motherboard's chipset, LAN, and audio drivers from the manufacturer's support page for optimal performance. Also install your GPU driver directly from NVIDIA (geforce.com/drivers) or AMD (amd.com/en/support) — the Windows Update version is often outdated}}.
+
+{+3:Troubleshooting OS installation issues:
+
+- **USB drive doesn't appear in boot menu:** Try a different USB port (use USB 2.0 if available — some BIOS versions have trouble booting from USB 3.0). Recreate the bootable drive. Ensure BIOS is set to UEFI boot mode (not Legacy/CSM) for modern operating systems.
+- **"No drives found" during Windows installation:** Your NVMe drive needs a storage driver. Download your motherboard's Intel RST or AMD storage driver, put it on a second USB drive, and use "Load driver" in the Windows installer to point to it.
+- **Windows installs but won't boot after removing USB:** Boot order in BIOS needs to prioritize the NVMe/SSD over USB. Enter BIOS and adjust boot priority.
+- **Getting into BIOS is difficult (boots too fast):** Hold Shift while clicking Restart in Windows to access advanced boot options, which includes a UEFI firmware settings option. Or mash the Delete key repeatedly as soon as you press the power button.}
+
+# You're Done!
+
+Your PC is [built and running]{2:built and running. Welcome to the custom PC world — you'll never buy a prebuilt again[^5]. A few [recommended next steps include stress-testing and setting up backups]{3:recommended next steps: install HWiNFO64 to monitor temperatures and voltages, run a CPU stress test (Cinebench or Prime95 for 15–30 minutes) and GPU stress test (3DMark or FurMark) to verify stability, check that RAM is running at its XMP/EXPO speed in Task Manager → Performance → Memory, and set up regular backups (Windows Backup, Backblaze, or a simple external drive). If anything is unstable during stress testing, recheck your cooler mounting, RAM seating, and power connections before suspecting a defective part}}.
+
+{+2:If something isn't working, don't panic. Virtually every first-build issue comes down to one of five things: unseated RAM, forgotten CPU power cable, monitor plugged into the motherboard instead of the GPU, front panel header not connected, or PSU switch is off. Work through them systematically before assuming a part is dead.}
+
+---references---
+[^1](2): PC Part Picker compatibility checker — verify all your parts work together before buying. https://pcpartpicker.com
+[^2](3): Motherboard QVL (Qualified Vendor List) — check your specific board's support page for validated RAM kits.
+[^3](3): Intel ARK — detailed CPU specifications including TDP, socket, and supported memory. https://ark.intel.com
+[^4](3): AMD Product Specifications — CPU and GPU specs including TDP and socket. https://www.amd.com/en/products/specifications
+[^5](2): UserBenchmark or 3DMark for post-build performance validation. https://www.userbenchmark.com
