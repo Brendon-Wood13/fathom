@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Fathom — Layered Documents</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+      max-width: 720px;
+      margin: 0 auto;
+      padding: 40px 20px;
+      line-height: 1.7;
+      color: #1a1a1a;
+      background: #fff;
+    }
+
+    header {
+      text-align: center;
+      padding: 60px 0 40px;
+    }
+    header h1 {
+      font-size: 2.2em;
+      margin: 0 0 8px;
+      letter-spacing: -0.02em;
+    }
+    header p {
+      color: #6b7280;
+      margin: 0;
+      font-size: 1.05em;
+    }
+
+    .examples {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      margin-top: 40px;
+    }
+
+    .example-card {
+      display: block;
+      text-decoration: none;
+      color: inherit;
+      border: 1px solid #e5e7eb;
+      border-radius: 10px;
+      padding: 24px 28px;
+      transition: border-color 0.15s, box-shadow 0.15s;
+    }
+    .example-card:hover {
+      border-color: #2563eb;
+      box-shadow: 0 2px 12px rgba(37, 99, 235, 0.08);
+    }
+    .example-card h2 {
+      font-size: 1.1em;
+      margin: 0 0 6px;
+    }
+    .example-card .meta {
+      font-size: 0.82em;
+      color: #6b7280;
+      margin-bottom: 8px;
+    }
+    .example-card .meta .theme-tag {
+      display: inline-block;
+      padding: 1px 8px;
+      border-radius: 4px;
+      background: #f3f4f6;
+      font-size: 0.92em;
+    }
+    .example-card p {
+      font-size: 0.92em;
+      color: #4b5563;
+      margin: 0;
+    }
+
+    footer {
+      margin-top: 60px;
+      padding-top: 20px;
+      border-top: 1px solid #e5e7eb;
+      text-align: center;
+      font-size: 0.85em;
+      color: #9ca3af;
+    }
+    footer a {
+      color: #6b7280;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Fathom</h1>
+    <p>Layered, interactive documents. Click to explore at your own depth.</p>
+  </header>
+
+  <div class="examples">
+    <a class="example-card" href="reader.html?doc=docs/arcline-outage.fathom">
+      <h2>Arcline Service Incident Report</h2>
+      <div class="meta">Arcline Infrastructure Team &middot; Jan 28, 2026 &middot; <span class="theme-tag">editorial</span></div>
+      <p>A service incident report at three levels: press release, engineering detail, and legal/compliance. Demonstrates how a single document serves communications, engineering, and legal teams.</p>
+    </a>
+
+    <a class="example-card" href="reader.html?doc=docs/theory-of-relativity.fathom">
+      <h2>The Theory of Relativity</h2>
+      <div class="meta">Fathom Knowledge Project &middot; Feb 10, 2026 &middot; <span class="theme-tag">clean</span></div>
+      <p>Einstein's theory from overview to full mathematical detail. Layers progress from accessible summary through conceptual explanations to equations and experimental data.</p>
+    </a>
+
+    <a class="example-card" href="reader.html?doc=docs/wet-amd-verigene.fathom">
+      <h2>VeriGene-R Gene Therapy for Wet AMD</h2>
+      <div class="meta">Verian Therapeutics &middot; Feb 10, 2026 &middot; <span class="theme-tag">clean</span></div>
+      <p>A clinical product overview at three depths: patient summary, clinical detail, and research methodology. Shows how layered documents can serve patients, clinicians, and researchers from a single source.</p>
+    </a>
+  </div>
+
+  <footer>
+    <p>Fathom is an open format for layered documents. <a href="https://github.com">View the spec</a></p>
+  </footer>
+</body>
+</html>
